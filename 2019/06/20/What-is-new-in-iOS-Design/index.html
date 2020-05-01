@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="整个 Session 讲了 iOS 13 中新引入的三个设计上的改进，dark mode、modal presentations 和 contextual menus。 Dark Mode这一部分介绍了设计规范、颜色、材质以及控件等方面在 dark mode 下的具体实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What&#39;s new in iOS Design - WWDC19 Session 808">
+<meta property="og:url" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="整个 Session 讲了 iOS 13 中新引入的三个设计上的改进，dark mode、modal presentations 和 contextual menus。 Dark Mode这一部分介绍了设计规范、颜色、材质以及控件等方面在 dark mode 下的具体实现。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/dark_mode.jpeg">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/both_modes.jpeg">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/colors.jpeg">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/tint_colors.jpeg">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/materials.jpeg">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/modal.jpeg">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/contextual_menus.jpeg">
+<meta property="article:published_time" content="2019-06-20T08:02:30.000Z">
+<meta property="article:modified_time" content="2019-06-20T08:02:30.870Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="wwdc19">
+<meta property="article:tag" content="design">
+<meta property="article:tag" content="dark mode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/dark_mode.jpeg">
+
+<link rel="canonical" href="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>What's new in iOS Design - WWDC19 Session 808 | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          What's new in iOS Design - WWDC19 Session 808
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-20 16:02:30" itemprop="dateCreated datePublished" datetime="2019-06-20T16:02:30+08:00">2019-06-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wwdc/" itemprop="url" rel="index"><span itemprop="name">wwdc</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>整个 Session 讲了 iOS 13 中新引入的三个设计上的改进，dark mode、modal presentations 和 contextual menus。</p>
+<h3 id="Dark-Mode"><a href="#Dark-Mode" class="headerlink" title="Dark Mode"></a>Dark Mode</h3><p>这一部分介绍了设计规范、颜色、材质以及控件等方面在 dark mode 下的具体实现。</p>
+<img src="/2019/06/20/What-is-new-in-iOS-Design/dark_mode.jpeg" class="">
+
+<a id="more"></a>
+
+<h4 id="iOS-Design-System"><a href="#iOS-Design-System" class="headerlink" title="iOS Design System"></a>iOS Design System</h4><p>首先，所有的新 app 都应该支持 light mode 和 dark mode，某些就是不出夜间模式的 app 看你们还怎么死扛，整个系统都黑了，就你还是白花花的，你好意思吗？说你呢，微信和即刻！</p>
+<img src="/2019/06/20/What-is-new-in-iOS-Design/both_modes.jpeg" class="">
+
+<p>然后整体的设计目标是：</p>
+<ul>
+<li>保持熟悉性，也就是不要把已经深入人心的习惯打破</li>
+<li>保持所有平台的统一性</li>
+<li>清晰的信息层级</li>
+<li>易使用</li>
+<li>保持简单的原则</li>
+</ul>
+<h4 id="Colors"><a href="#Colors" class="headerlink" title="Colors"></a>Colors</h4><img src="/2019/06/20/What-is-new-in-iOS-Design/colors.jpeg" class="">
+
+<ul>
+<li>颜色要有层级</li>
+<li>tint color 在 light mode 和 dark mode 下是不一样的</li>
+<li>light mode 和 dark mode 下要注意 tint color 和背景色的对比度</li>
+<li>elevated 的背景色要浅一些</li>
+</ul>
+<img src="/2019/06/20/What-is-new-in-iOS-Design/tint_colors.jpeg" class="">
+
+<h4 id="Materials"><a href="#Materials" class="headerlink" title="Materials"></a>Materials</h4><p>这里的 materials 就是指四种透明度，对应的翻译应该用「材质」更接近一些。</p>
+<p>四种材质分别是：</p>
+<ul>
+<li>Thick</li>
+<li>Regular，默认</li>
+<li>Thin</li>
+<li>Ultrathin</li>
+</ul>
+<img src="/2019/06/20/What-is-new-in-iOS-Design/materials.jpeg" class="">
+
+<p>Dark Mode 最后还有一些关于控件的设计规范，以及新推出的 SF Symbols，就不赘述了，想知道细节的就自行观看吧。</p>
+<h3 id="Modal-Presentations"><a href="#Modal-Presentations" class="headerlink" title="Modal Presentations"></a>Modal Presentations</h3><p>这个东西的前身就是 sheet，现在 UI 上改成了卡片式，好处是可以 peek 到前一个页面的背景，这样不会因为页面的完全切换而失去上下文的关联。</p>
+<p>Modal 意味着模式的切换，比如从全局切换到细节，从总览切换到编辑。</p>
+<img src="/2019/06/20/What-is-new-in-iOS-Design/modal.jpeg" class="">
+
+<h3 id="Contextual-Menus"><a href="#Contextual-Menus" class="headerlink" title="Contextual Menus"></a>Contextual Menus</h3><p>这个东西其实就是 3D touch 的衍生物，也可以理解为 macOS 上各个 app 的右键弹出的菜单。这个菜单会根据使用场景的不同提供不同的 action，也支持用分组和颜色来区分各个 actions，还可以根据屏幕大小以及屏幕方向来调整出现的位置。</p>
+<img src="/2019/06/20/What-is-new-in-iOS-Design/contextual_menus.jpeg" class="">
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/wwdc19/" rel="tag"># wwdc19</a>
+              <a href="/tags/design/" rel="tag"># design</a>
+              <a href="/tags/dark-mode/" rel="tag"># dark mode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/13/great-developer-habits/" rel="prev" title="Great Developer Habits - WWDC19 Session 239">
+      <i class="fa fa-chevron-left"></i> Great Developer Habits - WWDC19 Session 239
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/26/2019-summary/" rel="next" title="2019年终总结">
+      2019年终总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dark-Mode"><span class="nav-number">1.</span> <span class="nav-text">Dark Mode</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-Design-System"><span class="nav-number">1.1.</span> <span class="nav-text">iOS Design System</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Colors"><span class="nav-number">1.2.</span> <span class="nav-text">Colors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Materials"><span class="nav-number">1.3.</span> <span class="nav-text">Materials</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modal-Presentations"><span class="nav-number">2.</span> <span class="nav-text">Modal Presentations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Contextual-Menus"><span class="nav-number">3.</span> <span class="nav-text">Contextual Menus</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

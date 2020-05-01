@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这是迟到了半年的一篇 blog，本来去年8月就想写了，可是当时工期比较紧，一直忙于赶工，等到做完了就拖延到了今天，那就作为2019年第一篇正式 blog 吧。 相关项目是去年做的一个社交类型的小程序，我负责的是后端。到了测试用户列表的时候，必须要生成一些模拟用户。像年龄、性别、标签、描述这样的数据还比较好模拟，就是预设一些合理的数据集合，然后在里面随机取值就行了。还有些属性就不能这么简简单单地模拟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何生成模拟的用户数据">
+<meta property="og:url" content="https://vulgur.github.io/2019/01/07/how-to-generate-mock-user/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="这是迟到了半年的一篇 blog，本来去年8月就想写了，可是当时工期比较紧，一直忙于赶工，等到做完了就拖延到了今天，那就作为2019年第一篇正式 blog 吧。 相关项目是去年做的一个社交类型的小程序，我负责的是后端。到了测试用户列表的时候，必须要生成一些模拟用户。像年龄、性别、标签、描述这样的数据还比较好模拟，就是预设一些合理的数据集合，然后在里面随机取值就行了。还有些属性就不能这么简简单单地模拟">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2019/01/07/how-to-generate-mock-user/avatar.png">
+<meta property="article:published_time" content="2019-01-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-06-12T11:38:14.737Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="test">
+<meta property="article:tag" content="mock">
+<meta property="article:tag" content="package">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2019/01/07/how-to-generate-mock-user/avatar.png">
+
+<link rel="canonical" href="https://vulgur.github.io/2019/01/07/how-to-generate-mock-user/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>如何生成模拟的用户数据 | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2019/01/07/how-to-generate-mock-user/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何生成模拟的用户数据
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-07T00:00:00+08:00">2019-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-12 19:38:14" itemprop="dateModified" datetime="2019-06-12T19:38:14+08:00">2019-06-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node/" itemprop="url" rel="index"><span itemprop="name">Node</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这是迟到了半年的一篇 blog，本来去年8月就想写了，可是当时工期比较紧，一直忙于赶工，等到做完了就拖延到了今天，那就作为2019年第一篇正式 blog 吧。</p>
+<p>相关项目是去年做的一个社交类型的小程序，我负责的是后端。到了测试用户列表的时候，必须要生成一些模拟用户。像年龄、性别、标签、描述这样的数据还比较好模拟，就是预设一些合理的数据集合，然后在里面随机取值就行了。还有些属性就不能这么简简单单地模拟了，一些是构造数据比较麻烦（或者是浪费脑子，比如名字和日期），还有一些就是人工无法模拟出相对准确的数据（比如地理坐标），还有一些就是为了让测试数据看起来不那么假（比如头像）。</p>
+<a id="more"></a>
+
+<p>下面分别介绍针对名字、日期、地理位置和头像这四个用户属性使用的工具和方法。像这样随机生成模拟数据的包非常多，搜索关键字 <code>mock</code>、 <code>random</code>、 <code>fake</code> 即可。</p>
+<h3 id="模拟名字"><a href="#模拟名字" class="headerlink" title="模拟名字"></a>模拟名字</h3><p>我觉得可能有许多人（包括我）在生成测试数据的时候喜欢用<code>111</code> ，<code>12345</code> 和 <code>test</code> 这样的字符串，或者干脆胡乱敲一顿键盘，比如<code>asdfg</code> 或<code>oizxuvc</code> 这样的。这样的胡乱输入，第一看起来很假，第二因为字符很少会导致一些 UI 上的问题无法被发现。</p>
+<p>我用的是<a href="https://www.npmjs.com/package/node-random-name" target="_blank" rel="noopener">node-random-name</a>，用起来非常简单，下面是官方的代码示例，一共才5行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> random_name = <span class="built_in">require</span>(<span class="string">'node-random-name'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(random_name()); <span class="comment">// -&gt; "Brittny Kraska"</span></span><br><span class="line"><span class="built_in">console</span>.log(random_name(&#123; <span class="attr">first</span>: <span class="literal">true</span>, <span class="attr">gender</span>: <span class="string">"male"</span> &#125;)); <span class="comment">// -&gt; "Jean"</span></span><br><span class="line"><span class="built_in">console</span>.log(random_name(&#123; <span class="attr">last</span>: <span class="literal">true</span> &#125;)); <span class="comment">// -&gt; "Kinsel"</span></span><br><span class="line"><span class="built_in">console</span>.log(random_name(&#123; <span class="attr">seed</span>: <span class="string">'Based on this'</span> &#125;)); <span class="comment">// -&gt; "Garrett Scheets"</span></span><br><span class="line"><span class="built_in">console</span>.log(random_name(&#123; <span class="attr">random</span>: <span class="built_in">Math</span>.random, <span class="attr">female</span>: <span class="literal">true</span> &#125;)); <span class="comment">// -&gt; "Jo"</span></span><br></pre></td></tr></table></figure>
+
+<p>我用的这个包只能生成英文名，也有许多其他的包能生成其他语言的名字，还有一些各种动物、头衔、物品的名字。在 npm 里搜索就像开宝箱一样，总有一些让人惊喜的东西。</p>
+<h3 id="模拟日期"><a href="#模拟日期" class="headerlink" title="模拟日期"></a>模拟日期</h3><p>日期这个属性用在用户上主要就是生日了，还有一些操作的元数据。<code>moment</code> 是众所周知的处理日期的利器，而我选用的随机日期生成器就是基于<code>moment</code>的一个包，<a href="https://www.npmjs.com/package/moment-random" target="_blank" rel="noopener">moment-random</a>。</p>
+<p>这个包也是非常简单，只有一个 API，默认返回的是过去的某个日期，当然也可以指定日期的范围。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> momentRandom = <span class="built_in">require</span>(<span class="string">'moment-random'</span>);</span><br><span class="line"> </span><br><span class="line">momentRandom();</span><br><span class="line"><span class="comment">// &gt; random date in the past</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="模拟地理位置"><a href="#模拟地理位置" class="headerlink" title="模拟地理位置"></a>模拟地理位置</h3><p>项目中需要根据用户的定位数据来显示位置信息和互相之间的距离，所以需要模拟一些坐标数据。我采用的方法是根据某个城市中心的经纬度，然后随机生成一定范围内的坐标。一开始我发现了<a href="https://github.com/mock-end/random-coordinates" target="_blank" rel="noopener">random-coordinates</a> ，但是这个包生成的数据选项中只有精度，而没有范围，最后选用了 <a href="https://github.com/mock-end/random-latitude" target="_blank" rel="noopener">random-latitude</a>和 <a href="https://github.com/mock-end/random-longitude" target="_blank" rel="noopener">random-longitude</a>这两个包，其实都是同一个作者的作品。拿北京的坐标举例，下面的代码就是生成了周边的坐标信息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> latitude = randomLatitude(&#123;</span><br><span class="line">    min: <span class="number">39.9</span>,</span><br><span class="line">    max: <span class="number">40.07</span>,</span><br><span class="line">    fixed: <span class="number">10</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> longitude = randomLongitude(&#123;</span><br><span class="line">    min: <span class="number">116.3</span>,</span><br><span class="line">    max: <span class="number">116.39</span>,</span><br><span class="line">    fixed: <span class="number">10</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟头像"><a href="#模拟头像" class="headerlink" title="模拟头像"></a>模拟头像</h3><p>前面的几个工具都是一句调用的事，生成的说到底就是数字或字符串。而头像这个东西就复杂一些了，生成的是图片文件。在进行了几个工具的对比后，我最终选择的是<a href="https://www.npmjs.com/package/avatar-generator/v/2.0.2" target="_blank" rel="noopener">avatar-generator</a>这个包，它能生成 8bit 风格的头像，而且还能够根据人物的性别以及指定的一些外观来生成头像（最新的2.x版本才支持的）。</p>
+<img src="/2019/01/07/how-to-generate-mock-user/avatar.png" class="" title="generated avatar">
+
+<p>去年我用的时候这个包的版本还是1.0.8，而且还必须先安装 ImageMagick 才可以正常使用。现在升级到了2.0.x，负责图像处理的内部工具也改成了 sharp，也不必额外安装其他依赖了。旧代码我就不贴了，有兴趣的直接去官网看吧。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/test/" rel="tag"># test</a>
+              <a href="/tags/mock/" rel="tag"># mock</a>
+              <a href="/tags/package/" rel="tag"># package</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/01/2018-summary/" rel="prev" title="2018 年度回顾和总结">
+      <i class="fa fa-chevron-left"></i> 2018 年度回顾和总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/02/16/how-to-check-if-a-character-is-a-letter/" rel="next" title="用 Swift 刷 Leetcode No.917 - Reverse Only Letters">
+      用 Swift 刷 Leetcode No.917 - Reverse Only Letters <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟名字"><span class="nav-number">1.</span> <span class="nav-text">模拟名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟日期"><span class="nav-number">2.</span> <span class="nav-text">模拟日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟地理位置"><span class="nav-number">3.</span> <span class="nav-text">模拟地理位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟头像"><span class="nav-number">4.</span> <span class="nav-text">模拟头像</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

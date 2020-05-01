@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="首先，Xcode 10.2 已经支持了 Swift 5，而 Xcode 11 会支持 Swift 5.1，其实 SwiftUI 的背后就有 Swift 5.1 的新 API。 关于 ABI 和 SPM 就不再赘述了，下面是 Session 中提到的一些 Swift 5.1 中的新内容和改进。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What&#39;s New in Swift - WWDC19 Session 402">
+<meta property="og:url" content="https://vulgur.github.io/2019/06/11/what-is-new-in-swift/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="首先，Xcode 10.2 已经支持了 Swift 5，而 Xcode 11 会支持 Swift 5.1，其实 SwiftUI 的背后就有 Swift 5.1 的新 API。 关于 ABI 和 SPM 就不再赘述了，下面是 Session 中提到的一些 Swift 5.1 中的新内容和改进。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/11/what-is-new-in-swift/swift_performance.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/11/what-is-new-in-swift/swift_docker.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2019/06/11/what-is-new-in-swift/swift_se.jpg">
+<meta property="article:published_time" content="2019-06-11T03:00:14.000Z">
+<meta property="article:modified_time" content="2019-06-12T11:38:14.802Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="wwdc19">
+<meta property="article:tag" content="swift5.1">
+<meta property="article:tag" content="api">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2019/06/11/what-is-new-in-swift/swift_performance.jpg">
+
+<link rel="canonical" href="https://vulgur.github.io/2019/06/11/what-is-new-in-swift/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>What's New in Swift - WWDC19 Session 402 | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2019/06/11/what-is-new-in-swift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          What's New in Swift - WWDC19 Session 402
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-11 11:00:14" itemprop="dateCreated datePublished" datetime="2019-06-11T11:00:14+08:00">2019-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-12 19:38:14" itemprop="dateModified" datetime="2019-06-12T19:38:14+08:00">2019-06-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wwdc/" itemprop="url" rel="index"><span itemprop="name">wwdc</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>首先，Xcode 10.2 已经支持了 Swift 5，而 Xcode 11 会支持 Swift 5.1，其实 SwiftUI 的背后就有 Swift 5.1 的新 API。</p>
+<p>关于 ABI 和 SPM 就不再赘述了，下面是 Session 中提到的一些 Swift 5.1 中的新内容和改进。</p>
+<a id="more"></a>
+
+<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><img src="/2019/06/11/what-is-new-in-swift/swift_performance.jpg" class="">
+
+<ul>
+<li>代码大小缩小了 10%</li>
+<li>如果开启了 Optimized for Size，代码大小会缩小15%</li>
+<li><code>NSDictionary</code> 到 <code>Dictionary</code> 的桥接提高了1.6倍</li>
+<li><code>NSString</code> 到 <code>String</code> 的桥接提高了15倍</li>
+<li><code>String</code> 的默认编码由 UTF-16 改为了 UTF-8</li>
+<li>基于 SwiftNIO 的 HTTP RPS 提高了 20%</li>
+</ul>
+<h3 id="Swift-Tooling-and-Open-Source"><a href="#Swift-Tooling-and-Open-Source" class="headerlink" title="Swift Tooling and Open Source"></a>Swift Tooling and Open Source</h3><img src="/2019/06/11/what-is-new-in-swift/swift_docker.jpg" class="">
+
+<ul>
+<li>提供了官方的 Swift Docker Image</li>
+<li>SourceKit，一个提供代码编译、跳转到定义和重构的工具集</li>
+<li>Language Server Protocol，配合 SourceKit 可以让任何遵守这个协议的编辑器都能编辑 Swift，比如 Vim</li>
+</ul>
+<h3 id="Language-and-Standard-Library"><a href="#Language-and-Standard-Library" class="headerlink" title="Language and Standard Library"></a>Language and Standard Library</h3><img src="/2019/06/11/what-is-new-in-swift/swift_se.jpg" class="">
+
+<ul>
+<li>增加了 implicit return from single expressions</li>
+<li>增加了对成员变量的 synthesized default values</li>
+<li>改进了针对向量运算的 API：SIMD</li>
+<li>String Interpolation 的速度提升了，而且可以增加 interpolation 的行为了，比如本地化</li>
+<li>增加了一个关键字 <code>some</code>，用于修饰 Opaque Result Types，具体使用方法请看这篇 <a href="https://kemchenj.github.io/2019-05-05/" target="_blank" rel="noopener">泛型语法改进第一弹 —— Opaque Result Types</a></li>
+<li>Property Wrapper Types，就是把具有相同逻辑的property 的读写包装起来，比如 UserDefaults 的操作，这样就可以减少许多冗余代码</li>
+<li>可以用 Swift 定义 DSL 了，SwiftUI 的语法其实就是一种 DSL</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/wwdc19/" rel="tag"># wwdc19</a>
+              <a href="/tags/swift5-1/" rel="tag"># swift5.1</a>
+              <a href="/tags/api/" rel="tag"># api</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/10/what-is-New-in-App-Store-Connect/" rel="prev" title="What's New in App Store Connect - WWDC19 Session 301">
+      <i class="fa fa-chevron-left"></i> What's New in App Store Connect - WWDC19 Session 301
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/12/catalina-beta/" rel="next" title="Catalina beta 初体验">
+      Catalina beta 初体验 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance"><span class="nav-number">1.</span> <span class="nav-text">Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift-Tooling-and-Open-Source"><span class="nav-number">2.</span> <span class="nav-text">Swift Tooling and Open Source</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Language-and-Standard-Library"><span class="nav-number">3.</span> <span class="nav-text">Language and Standard Library</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

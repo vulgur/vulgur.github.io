@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这篇博客的起因是这样的，前些日子的一个电话面试，其中一个问题是：如何实现 iOS 系统中的日历应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 Reveal 分析系统日历应用（碰到了一个大坑）">
+<meta property="og:url" content="https://vulgur.github.io/2016/04/14/reveal-calendar/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="这篇博客的起因是这样的，前些日子的一个电话面试，其中一个问题是：如何实现 iOS 系统中的日历应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2016/04/14/reveal-calendar/calendar.png">
+<meta property="og:image" content="https://vulgur.github.io/2016/04/14/reveal-calendar/applications_list.png">
+<meta property="og:image" content="https://vulgur.github.io/2016/04/14/reveal-calendar/entitlements.png">
+<meta property="og:image" content="https://vulgur.github.io/2016/04/14/reveal-calendar/reveal.png">
+<meta property="og:image" content="https://vulgur.github.io/2016/04/14/reveal-calendar/month.png">
+<meta property="og:image" content="https://vulgur.github.io/2016/04/14/reveal-calendar/year.png">
+<meta property="article:published_time" content="2016-04-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-06-12T11:27:09.349Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="reveal">
+<meta property="article:tag" content="reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2016/04/14/reveal-calendar/calendar.png">
+
+<link rel="canonical" href="https://vulgur.github.io/2016/04/14/reveal-calendar/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>用 Reveal 分析系统日历应用（碰到了一个大坑） | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2016/04/14/reveal-calendar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用 Reveal 分析系统日历应用（碰到了一个大坑）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-14 00:00:00" itemprop="dateCreated datePublished" datetime="2016-04-14T00:00:00+08:00">2016-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-12 19:27:09" itemprop="dateModified" datetime="2019-06-12T19:27:09+08:00">2019-06-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇博客的起因是这样的，前些日子的一个电话面试，其中一个问题是：如何实现 iOS 系统中的日历应用。</p>
+<a id="more"></a>
+<img src="/2016/04/14/reveal-calendar/calendar.png" class="" title="Calendar">
+
+<p>我一边翻看手机中的 app，一边回答说有两种做法：一是用 UITableView+Cell，一是用 UIScrollView+UIView，在滑动的过程中计算即将显示的内容。</p>
+<p>面试的结果是失败，当然不光是因为我上面的回答，但却激起了我的好奇心，这日历到底是怎么实现的？</p>
+<p>于是我就打开了 Reveal，这个神器是我在初学 iOS 时就果断买的，当时还是折扣价，现在想想都觉得超值。如果没有这个东西我都无法想想我的第一个项目会遇到多大的困难，可能都无法完成交付。</p>
+<h2 id="用-Reveal-查看日历应用"><a href="#用-Reveal-查看日历应用" class="headerlink" title="用 Reveal 查看日历应用"></a>用 Reveal 查看日历应用</h2><p>关于使用 Reveal 查看任意 app 的方法，我就不再这里赘述了，网上有很多教程，在此给出一个搜索关键字：<strong>Reveal Loader</strong>。</p>
+<p>以前用 Reveal 看其他 app 的 UI 是如何实现的时候，一看一个准，从未遇到任何问题。但是这次让我碰到了一个大坑……其他的 app 都可以用 Reveal，唯独这个日历 app 不可以（后来经过搜索，发现相机应用也是不可以的），Reveal 就是死活连不上，真是奇了怪了。</p>
+<p>鼓捣了半天后还是无法解决，只好 Google 大法了。一开始用中文关键字搜索，都是不着边际的搜索结果。改用了英文关键字，第一个结果就是我想要的！</p>
+<p>搜到的结果网页是 Reveal 的一个 Support 页面，<a href="http://support.revealapp.com/discussions/questions/50918-unable-to-inspect-calendar-mobilecal" target="_blank" rel="noopener">Unable to inspect Calendar (MobileCal)</a> 。这里面说貌似日历应用阻止了和 Reveal HTTP Server 的连接，而在倒数第二楼里面也给出了 SO 的一个链接，<a href="http://stackoverflow.com/questions/27126315/cannot-bind-a-socket-inside-apple-calendar-dylib-injection" target="_blank" rel="noopener">Cannot bind() a socket inside Apple Calendar (dylib injection)</a>，里面就是更详细的原因和解决方法。</p>
+<p>对于沙盒机制和 dylib 注入什么的我基本不懂，我就拣我看得懂的说。原因就是，日历应用（MobileCal）采用的是自定义沙盒，app 中有一个 Entitlements.xml 文件，里面就是规定这个 app 的各种权限。这个文件里又有一个特殊的字段（seatbelt-profiles），导致阻止了所以得网络通信。回答者也给出了两个解决方案，而第一个难度系数太高，所以就第二个给出了实际的操作方法。</p>
+<p>简单来说，这个方法就是把 app 的权限导出，编辑后再塞回给 app。为什么不直接修改这个 Entitlements.xml 呢？因为真正的权限存在于 app 的二进制文件中。整个操作所使用的工具是 <strong>ldid</strong>。操作的过程中我遇到的一个问题就是怎么在手机中找到 app 的文件位置，一开始我走了弯路，我误以为要拿到 ipa 文件，其实不是。网上搜到的都是说在 <strong>/var/mobile/Applications/</strong> 下面，还说所有的 app 都是以一些乱七八糟的标识符命名的文件夹，但是我的 4s 并没有这个目录。还是搜了半天才发现，真正的 app 都在/Applications/（好像是从 iOS 8.x 开始改的），而且所以得 app 目录就是以 <strong>XXX.app</strong> 命名的。</p>
+<img src="/2016/04/14/reveal-calendar/applications_list.png" class="" title="App Folders">
+
+<p>接下来的就十分简单了，就是照着 SO 上面执行以下步骤：</p>
+<ol>
+<li>导出权限，<code>ldid -e MobileCal &gt; entitlements.xml</code></li>
+<li>手机上还没有 vi 和 vim，只好把这个 xml 复制到电脑中编辑，删掉那个 <strong>seatbelt-profiles</strong>，再传回手机</li>
+</ol>
+<img src="/2016/04/14/reveal-calendar/entitlements.png" class="" title="Entitlements.xml">
+
+<ol start="3">
+<li>最后把权限导入，<code>ldid -Sentitlements.xml MobileCal</code></li>
+</ol>
+<p>这样就大功告成了，日历就可以在 Reveal 中一览无遗了。</p>
+<img src="/2016/04/14/reveal-calendar/reveal.png" class="" title="Calendar App">
+
+<h2 id="分析日历应用的实现"><a href="#分析日历应用的实现" class="headerlink" title="分析日历应用的实现"></a>分析日历应用的实现</h2><p>我主要看了月视图和年视图这两个页面的结构，发现这个应用的实现真是非主流啊。</p>
+<img src="/2016/04/14/reveal-calendar/month.png" class="" title="Month">
+<img src="/2016/04/14/reveal-calendar/year.png" class="" title="Year">
+
+<p>月视图的页面主要是由 <code>CompactMonthWeekView</code> 和 <code>CompactMonthWeekDayOverlay</code> 组成的，这两个东西都是 <code>UIView</code> 的子类。诡异的是月视图中表示日期的1到31都看不到 <code>UILabel</code>，这些数字都是包含在 <code>CompactMonthWeekView</code> 中。而那些 <code>CompactMonthWeekDayOverlay</code> 也只是显示农历日期，看不到有任何的 subView。想不出这两个东西是如何封装的。当然，表示「今日」的控件是另外的一个类，可以看到其中的 <code>UILabel</code>。我把手机切换到英文，再看，果然 <code>CompactMonthWeekDayOverlay</code> 这个东西就没了。</p>
+
+
+<p>再来看年视图，主要是由 <code>CompactYearMultipleMonthView</code> 和 <code>CompactYearMonthView</code> 组成。同样的是，数字都看不到 UILabel 的存在，也看不到 UIImageView，实在是奇怪。</p>
+<p>还遇到一个奇怪的地方，4s 的月视图中点击日期除了「今天」都没有反应，而 iPhone 6 点击任意日期都可以进入日程的页面。</p>
+<p>年视图和月视图可以无限上滑和下滑，在 Reveal 中可以看到对上一年（月）和下一年（月）都是有预加载的。年视图中不是整年的加载，大概是两行左右的预加载（在屏幕外）。月视图中下个月是整月加载，本月和上个月加载的不多，只有两三个星期。</p>
+<p>这些控件应该不是固定的图片，理论上是可以通过算法计算出每个月视图和年视图中数字的排列的，但是在无限滑动中还能保持特别的顺畅，实在是费解。我只会用 Reveal 查看 app 的 UI 结构，对于逆向领域是一窍不通，如果有哪位有过研究的前辈还请告知，谢谢！</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/reveal/" rel="tag"># reveal</a>
+              <a href="/tags/reverse/" rel="tag"># reverse</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/01/22/zhihu-3/" rel="prev" title="仿写知乎日报：侧边栏菜单">
+      <i class="fa fa-chevron-left"></i> 仿写知乎日报：侧边栏菜单
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/05/29/sources-1/" rel="next" title="Sources 开发日记一：开始">
+      Sources 开发日记一：开始 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用-Reveal-查看日历应用"><span class="nav-number">1.</span> <span class="nav-text">用 Reveal 查看日历应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析日历应用的实现"><span class="nav-number">2.</span> <span class="nav-text">分析日历应用的实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

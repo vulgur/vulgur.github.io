@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="失业后发现自己的项目经验太少了，除了公司的 App 和自己的游戏之外就几乎为零了，所以必须要增加自己的实战经验。之前写 UI 都是纯代码，为了熟悉 Storyboard，特地选择了知乎日报来练手。 在之前这个仿知乎日报的 iOS App 已经很出名了，我也是借鉴（就是抄）了部分的实现，图片和 API 则是完全照搬。当然我也有我自己的不同之处，我的 UI 是尽可能采用 Storyboard+xib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿写知乎日报：主页面">
+<meta property="og:url" content="https://vulgur.github.io/2016/01/06/zhihu-1/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="失业后发现自己的项目经验太少了，除了公司的 App 和自己的游戏之外就几乎为零了，所以必须要增加自己的实战经验。之前写 UI 都是纯代码，为了熟悉 Storyboard，特地选择了知乎日报来练手。 在之前这个仿知乎日报的 iOS App 已经很出名了，我也是借鉴（就是抄）了部分的实现，图片和 API 则是完全照搬。当然我也有我自己的不同之处，我的 UI 是尽可能采用 Storyboard+xib">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/06/zhihu-1/zh-home.gif">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/06/zhihu-1/story_cell.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/06/zhihu-1/home_view.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/06/zhihu-1/adjust_scroll_view_insets.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/06/zhihu-1/carousel_view.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/06/zhihu-1/banner.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/06/zhihu-1/reveal.jpg">
+<meta property="article:published_time" content="2016-01-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-06-12T11:27:09.411Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="仿写">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2016/01/06/zhihu-1/zh-home.gif">
+
+<link rel="canonical" href="https://vulgur.github.io/2016/01/06/zhihu-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>仿写知乎日报：主页面 | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2016/01/06/zhihu-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          仿写知乎日报：主页面
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-06 00:00:00" itemprop="dateCreated datePublished" datetime="2016-01-06T00:00:00+08:00">2016-01-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-12 19:27:09" itemprop="dateModified" datetime="2019-06-12T19:27:09+08:00">2019-06-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5/" itemprop="url" rel="index"><span itemprop="name">知乎日报</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>失业后发现自己的项目经验太少了，除了公司的 App 和自己的游戏之外就几乎为零了，所以必须要增加自己的实战经验。之前写 UI 都是纯代码，为了熟悉 Storyboard，特地选择了知乎日报来练手。</p>
+<p>在之前这个<a href="https://github.com/hshpy/HPYZhiHuDaily" target="_blank" rel="noopener">仿知乎日报的 iOS App</a> 已经很出名了，我也是借鉴（就是抄）了部分的实现，图片和 API 则是完全照搬。当然我也有我自己的不同之处，我的 UI 是尽可能采用 Storyboard+xib 来实现，另外也在一些细节上更贴近正版知乎日报。</p>
+<a id="more"></a>
+
+<p>这篇主要讲一下首页的实现，以下是动图。</p>
+<img src="/2016/01/06/zhihu-1/zh-home.gif" class="" title="首页效果">
+
+<h2 id="首页结构"><a href="#首页结构" class="headerlink" title="首页结构"></a>首页结构</h2><p>首页主要由以下几部分组成：</p>
+<ol>
+<li>顶部的图片轮播</li>
+<li>下面的 TableView</li>
+<li>顶部的其他小东西：展开侧边栏的按钮，刷新控件，「今日新闻」的标题，和一个随着 TableView 上滑出现的 View</li>
+</ol>
+<h2 id="上滑效果"><a href="#上滑效果" class="headerlink" title="上滑效果"></a>上滑效果</h2><p>先说一下 TableView 的实现。首先自定义一个 UITableViewCell，按照原版的把大小和位置设定好，这个不复杂，如下图：</p>
+<img src="/2016/01/06/zhihu-1/story_cell.jpg" class="" title="自定义 Cell">
+
+<p>接下来弄 TableView，这个 TableView 是和父视图同样大小的，也就是充满屏幕（注意，TableView 的父视图不是 HomeViewController 的 UIView，而是其下的 Subview，轮播视图以及其他控件都是放在这个 View 中的，至于为什么不直接放在 HomeViewController 的 View 里面，下一篇讲侧边栏实现的时候再解释……）。</p>
+<p>在视觉上，第一感觉这个 TableView 好像应该是放在轮播图片的下面的（也就是 TableView 的 top 贴着轮播图片的 bottom），最开始我也是这样做的。<br>但是后来做上滑效果的时候才发现这样不行，因为上滑的时候需要 Cell 和轮播图片同时向上移动，这样 TableView 的 origin 就会改变，contentOffset 就不好计算了，而轮播图片的移动全靠这个 offset 来决定。</p>
+<p>我也试过将 TableView 的初始 contentOffset 设为轮播图片的下面，但是滑上去就下不来了……所以，最后的解决办法是将 TableView 铺满屏幕，上面加一个和轮播图片同样高度的 Header，完美！</p>
+<img src="/2016/01/06/zhihu-1/home_view.jpg" class="" title="首页的 Storyboard">
+
+
+<p>上面说过，上滑效果全靠 TableView 的 contentOffset 来实现。HomeViewController 要实现 UIScrollViewDelegate 中的 scrollViewDidScroll: 这个方法。 在这个方法里面，加入以下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGFloat</span> offsetY = scrollView.contentOffset.y;</span><br><span class="line"><span class="keyword">if</span> (offsetY &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>.topView) &#123;</span><br><span class="line">        <span class="keyword">self</span>.topView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, kScreenWidth, <span class="number">64</span>)];</span><br><span class="line">        [<span class="keyword">self</span>.homeView insertSubview:<span class="keyword">self</span>.topView belowSubview:<span class="keyword">self</span>.showSideMenuButton];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">CGFloat</span> alpha = offsetY / <span class="number">64</span>;</span><br><span class="line">    <span class="keyword">self</span>.topView.backgroundColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">60.</span>f / <span class="number">255.</span>f</span><br><span class="line">                                                   green:<span class="number">198.</span>f / <span class="number">255.</span>f</span><br><span class="line">                                                    blue:<span class="number">253.</span>f / <span class="number">255.</span>f</span><br><span class="line">                                                   alpha:alpha];</span><br><span class="line">    <span class="keyword">self</span>.carouselViewTop.constant = -offsetY;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码做了这些：</p>
+<ol>
+<li>首先判断 contentOffset.y，如果大于零那就是在向上滑动。</li>
+<li>如果 topView 不存在的话，就新生成一个，并且 topView 的背景颜色随着滑动距离变化。</li>
+<li>最后设置轮播图片距离父视图 top 的约束，这个变量是从 Storyboard 中拖过来的，将这个约束设为 -offsetY 就可以实现轮播图片和 Cell 一起向上滑动的效果了。</li>
+</ol>
+<p>还需要注意的是，展示侧边栏的按钮，还有刷新控件和「今日新闻」的 UILabel，必须在层级上高于这个 topView，不然就会被 topView 盖住。</p>
+<p>有一个小细节的地方，困扰了我好久，就是 TableView 的第一个 Cell 和上面的轮播图片始终有一段距离。最后各种尝试和搜索后才找到解决方法：在 Storyboard 中选中 HomeViewController，在 Attributes Inspector 中把 <strong>Adjust Scroll View Insets</strong> 这个选项勾掉。</p>
+<img src="/2016/01/06/zhihu-1/adjust_scroll_view_insets.jpg" class="" title="设置 ViewController 的属性">
+
+<h2 id="图片轮播"><a href="#图片轮播" class="headerlink" title="图片轮播"></a>图片轮播</h2><p>这部分在实现思路上基本完全借鉴了上面提及的那个仿作，整个控件的容器是一个 UIScrollView，里面并排摆放所有的图片，还有一个 UIPageControl 来显示对应的索引。</p>
+<img src="/2016/01/06/zhihu-1/carousel_view.jpg" class="" title="轮播容器的 Storyboard">
+
+<p>自定义一个 BannerView，用来显示每一个轮播的图片以及标题。上面的容器里装的就是这个 View。</p>
+<img src="/2016/01/06/zhihu-1/banner.jpg" class="" title="每一个轮播的 View">
+
+
+<p>重要的轮播逻辑是这样的：通过 API 获取的轮播个数是5个，但是容器中的 View 是7个（5+2）。这一排的 BannerView 按照序号是这样排列的，5-1-2-3-4-5-1，也就是把第一个和最后一个复制一份添加到数组的尾和头。</p>
+<p>而 ScrollView 的初始 offset 是数组的第二个（也就是序号为1的）。这样，1在右划的时候会在左面显示5，5在左划的时候会显示1。如果 ScrollView 的 contentOffset 停留在数组的第一个（5），那么就把 contentOffset 设为数组的第6个（正确顺序的5）。同理，如果 ScrollView 的 contentOffset 停留在数组的最后一个（1），那么就把 contentOffset 设为数组的第2个（正确顺序的1）。这样就实现了一个可以无限循环的轮播。</p>
+<p>相关代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> offsetX = scrollView.contentOffset.x;</span><br><span class="line">    <span class="keyword">if</span> (offsetX ==  <span class="number">6</span> * kScreenWidth) &#123;</span><br><span class="line">        _scrollView.contentOffset = <span class="built_in">CGPointMake</span>(kScreenWidth, <span class="number">0</span>);</span><br><span class="line">        _pageControl.currentPage = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (offsetX == <span class="number">0</span>) &#123;</span><br><span class="line">        _scrollView.contentOffset = <span class="built_in">CGPointMake</span>(<span class="number">5</span> * kScreenWidth, <span class="number">0</span>);</span><br><span class="line">        _pageControl.currentPage = <span class="number">4</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        _pageControl.currentPage = offsetX/kScreenWidth - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体运行时的效果如下：</p>
+<img src="/2016/01/06/zhihu-1/reveal.jpg" class="" title="Reveal 截图">
+
+<h2 id="刷新动画"><a href="#刷新动画" class="headerlink" title="刷新动画"></a>刷新动画</h2><p>这里有两部分内容，一是刷新控件的实现，二是刷新控件的控制。</p>
+<p>刷新控件的是由两部分组成的，一个 UIActivityIndicatorView 和由 CAShapeLayer 绘制的圆环。<br>定义一个 RefreshView，初始化中加入以下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)customInit &#123;</span><br><span class="line">    _indicatorView = [[<span class="built_in">UIActivityIndicatorView</span> alloc]initWithFrame:<span class="keyword">self</span>.bounds];</span><br><span class="line"></span><br><span class="line">    _grayCircleShapeLayer = [<span class="built_in">CAShapeLayer</span> layer];</span><br><span class="line">    _grayCircleShapeLayer.lineWidth = <span class="number">2.</span>f;</span><br><span class="line">    _grayCircleShapeLayer.strokeColor = [<span class="built_in">UIColor</span> grayColor].CGColor;</span><br><span class="line">    _grayCircleShapeLayer.fillColor = [<span class="built_in">UIColor</span> clearColor].CGColor;</span><br><span class="line">    _grayCircleShapeLayer.opacity = <span class="number">0</span>;</span><br><span class="line">    _grayCircleShapeLayer.path = [<span class="built_in">UIBezierPath</span> bezierPathWithOvalInRect:<span class="keyword">self</span>.bounds].CGPath;</span><br><span class="line"></span><br><span class="line">    _whiteCircleShapeLayer = [<span class="built_in">CAShapeLayer</span> layer];</span><br><span class="line">    _whiteCircleShapeLayer.lineWidth = <span class="number">2.</span>f;</span><br><span class="line">    _whiteCircleShapeLayer.strokeColor = [<span class="built_in">UIColor</span> whiteColor].CGColor;</span><br><span class="line">    _whiteCircleShapeLayer.fillColor = [<span class="built_in">UIColor</span> clearColor].CGColor;</span><br><span class="line">    _whiteCircleShapeLayer.opacity = <span class="number">0</span>;</span><br><span class="line">    _whiteCircleShapeLayer.path = [<span class="built_in">UIBezierPath</span> bezierPathWithArcCenter:<span class="built_in">CGPointMake</span>(<span class="keyword">self</span>.width/<span class="number">2</span>, <span class="keyword">self</span>.width/<span class="number">2</span>)</span><br><span class="line">                                                                 radius:<span class="keyword">self</span>.width/<span class="number">2</span></span><br><span class="line">                                                             startAngle:M_PI_2 endAngle:M_PI * <span class="number">5</span> / <span class="number">2</span></span><br><span class="line">                                                              clockwise:<span class="literal">YES</span>].CGPath;</span><br><span class="line">    _whiteCircleShapeLayer.strokeEnd = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> addSubview:_indicatorView];</span><br><span class="line">    [<span class="keyword">self</span>.layer addSublayer:_grayCircleShapeLayer];</span><br><span class="line">    [<span class="keyword">self</span>.layer addSublayer:_whiteCircleShapeLayer];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>圆环由一个灰色的背景圆环和一个表示进度的白色圆弧组成，下拉过程中更新白色圆弧的长度，到指定位置后，整个圆环消失，开始 UIActivityIndicatorView 的动画。<br>更新圆环进度的代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)updateProgress:(<span class="built_in">CGFloat</span>)progress &#123;</span><br><span class="line">    <span class="keyword">if</span> (progress &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        _whiteCircleShapeLayer.opacity = <span class="number">0</span>;</span><br><span class="line">        _grayCircleShapeLayer.opacity = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        _whiteCircleShapeLayer.opacity = <span class="number">1</span>;</span><br><span class="line">        _grayCircleShapeLayer.opacity = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (progress &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        progress = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    _whiteCircleShapeLayer.strokeEnd = progress;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对刷新控件的控制其实和上滑的控制一样，也在 HomeViewController 中的 scrollViewDidScroll: 中，这部分逻辑就是 offsetY &lt; 0 的那一部分。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.carouselViewHeight.constant = <span class="number">220</span> - offsetY;</span><br><span class="line"><span class="keyword">if</span> (offsetY &lt;= -kRefreshOffsetY * <span class="number">1.5</span>) &#123;</span><br><span class="line">   <span class="keyword">self</span>.tableView.contentOffset = <span class="built_in">CGPointMake</span>(<span class="number">0</span>, -kRefreshOffsetY * <span class="number">1.5</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (offsetY &lt;= <span class="number">0</span> &amp;&amp; offsetY &gt;= -kRefreshOffsetY * <span class="number">1.5</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">self</span>.isRefreshing) &#123;</span><br><span class="line">       [<span class="keyword">self</span>.refreshView updateProgress:<span class="number">0</span>];</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       [<span class="keyword">self</span>.refreshView updateProgress:-offsetY / kRefreshOffsetY];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (offsetY &lt; -kRefreshOffsetY &amp;&amp; !scrollView.isDragging) &#123;</span><br><span class="line">   [<span class="keyword">self</span>.refreshView startAnimation];</span><br><span class="line">   <span class="keyword">self</span>.isRefreshing = <span class="literal">YES</span>;</span><br><span class="line">   dispatch_after(</span><br><span class="line">                  dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2</span> * <span class="built_in">NSEC_PER_SEC</span>)),</span><br><span class="line">                  dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                      [<span class="keyword">self</span>.refreshView stopAnimation];</span><br><span class="line">                      <span class="keyword">self</span>.isRefreshing = <span class="literal">NO</span>;</span><br><span class="line">                  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码的逻辑有：</p>
+<ol>
+<li>下拉时增加轮播图片的高度。</li>
+<li>TableView 不是无限下拉的，只能下拉到一个指定的位置，超过的话，TableView 就不再下滑了。</li>
+<li>下拉一段后再上滑，如果进入了刷新状态，不显示圆环；如果没进入刷新状态，那么就根据 下拉距离/下拉阈值 来更新圆环进度。</li>
+<li>如果下拉距离达到了阈值并且松手了（没有拖动），那么就进入刷新状态。我这里做了个2秒刷新时间。</li>
+</ol>
+<h2 id="遗留"><a href="#遗留" class="headerlink" title="遗留"></a>遗留</h2><ol>
+<li>目前这个主页只做了展示，点击没有任何效果。</li>
+<li>TableView 滑上再滑下的时候，topView 不会完全消失，可能会有淡淡地残留，这点还没有优化。</li>
+<li>原版的轮播图片底部和顶部有黑色阴影的渐变，这样在纯白的图片下，按钮和文字标题都可以清晰显示出来，这点我也没做。</li>
+</ol>
+<p>另外，代码请戳 <a href="https://github.com/vulgur/WSDZhihuDaily" target="_blank" rel="noopener">github</a>。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BB%BF%E5%86%99/" rel="tag"># 仿写</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2016/01/08/zhihu-2/" rel="next" title="仿写知乎日报：主页面补遗">
+      仿写知乎日报：主页面补遗 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#首页结构"><span class="nav-number">1.</span> <span class="nav-text">首页结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上滑效果"><span class="nav-number">2.</span> <span class="nav-text">上滑效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片轮播"><span class="nav-number">3.</span> <span class="nav-text">图片轮播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷新动画"><span class="nav-number">4.</span> <span class="nav-text">刷新动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遗留"><span class="nav-number">5.</span> <span class="nav-text">遗留</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

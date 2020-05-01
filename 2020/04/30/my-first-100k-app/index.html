@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="100K 指的是 app 的总下载量，也就是 10W，并不是收入。 下面就是我的 app， 极简时钟（以下简称为 ZFC）背后的故事，一直以来都想详细记录一下这个对于我来说意义非凡的 app，正好趁此下载量突破10W的机会，就当作一个里程碑的纪念了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的第一个 100K app">
+<meta property="og:url" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="100K 指的是 app 的总下载量，也就是 10W，并不是收入。 下面就是我的 app， 极简时钟（以下简称为 ZFC）背后的故事，一直以来都想详细记录一下这个对于我来说意义非凡的 app，正好趁此下载量突破10W的机会，就当作一个里程碑的纪念了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/dark.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/201708-201903.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/2019.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/201912-202004.png">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/light.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/comments.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/notifications.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/review.png">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/review_jp.png">
+<meta property="og:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/rank.jpeg">
+<meta property="article:published_time" content="2020-04-30T03:29:51.000Z">
+<meta property="article:modified_time" content="2020-04-30T03:29:51.348Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="独立开发者">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2020/04/30/my-first-100k-app/dark.jpg">
+
+<link rel="canonical" href="https://vulgur.github.io/2020/04/30/my-first-100k-app/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>我的第一个 100K app | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2020/04/30/my-first-100k-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的第一个 100K app
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-30 11:29:51" itemprop="dateCreated datePublished" datetime="2020-04-30T11:29:51+08:00">2020-04-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/app/" itemprop="url" rel="index"><span itemprop="name">app</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <img src="/2020/04/30/my-first-100k-app/dark.jpg" class="">
+
+<p>100K 指的是 app 的总下载量，也就是 10W，并不是收入。</p>
+<p>下面就是我的 app， 极简时钟（以下简称为 ZFC）背后的故事，一直以来都想详细记录一下这个对于我来说意义非凡的 app，正好趁此下载量突破10W的机会，就当作一个里程碑的纪念了。</p>
+<a id="more"></a>
+
+<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>先说一下制作这个 app 的动机。2017年我在 App Store 中寻找一个可以把手机当作时钟的 app，我对这样 app 的要求就是简约不花哨，但是我找了一大圈，不是收费的就是带各种广告的。一开始我还不明白为什么这么简单的一个 app 居然还要加入广告，而且还是在屏幕非常显眼的位置，一点美感也没有了（直到后来我知道广告墙这种东西……）。收费的当时基本就是 Fliqlo 一枝独秀，我很喜欢这个公司的翻页钟设计，之前用过很长一段时间 Fliqlo 在 Mac 上的屏保，免费又好看，于是我就决定做一个免费无广告的翻页钟 app。</p>
+<h3 id="开发过程"><a href="#开发过程" class="headerlink" title="开发过程"></a>开发过程</h3><h4 id="初上架（2017年8月～2018年9月）"><a href="#初上架（2017年8月～2018年9月）" class="headerlink" title="初上架（2017年8月～2018年9月）"></a>初上架（2017年8月～2018年9月）</h4><p>这个 app 在2017年7月中旬开始开发，翻页动画上借鉴了 GitHub 上一个开源项目，断断续续做了半个月，第一版（v1.0）于2017年7月29日提交，但是在8月4日被拒了……原因是第一版 app 的名字我给起的是「Flip Clock」，因为已经有这个名字的 app 了，所以被拒。当时觉得这个 app 的极简设计很符合英文中 Zen 的意境，所以就在 Flip Clok 前面 加上了 Zen，以「Zen Flip Clock」的名字再次提交（v1.1），第二天就通过审核并上架了。后来加入了中文本地化的名字后，Zen Flip Clock 也作为英文 app 名一直使用着，而且在 App Store 里搜这个名字得到的结果是唯一的（目前）。</p>
+<img src="/2020/04/30/my-first-100k-app/201708-201903.jpg" class="">
+
+<p>在这一年的时间里，可以从上面的图里看到，除了刚上架那两个月下载多一些，基本上每天的下载数都是个位数。现在想来这样的数据背后的原因可能有两点：一是我压根就没做任何宣传推广，纯粹是自然下载量，所以根本是无人知晓的；二是这个app一开始我也没做中文的本地化，因为我图省事就没做，还企图走国际化来着（然而直到今日，国外的下载量都寥寥无几😂）。</p>
+<p>v1.4 发布后，我就半年多没再关注这个 app，直到2019年3月。</p>
+<p>这期间的版本是从 v1.2 到 v1.4，主要的迭代内容如下：</p>
+<ul>
+<li>加入了<strong>浅色模式</strong>。一开始是只有黑暗模式一种配色，后来加入另一种更适合白色机型的配色。</li>
+<li>增加了<strong>番茄钟模式</strong>。这个纯粹是为了满足我个人的需求，现在看来很多人都非常喜欢这个翻页的番茄钟。</li>
+</ul>
+<h4 id="好评剧增（2019年3月～2019年12月）"><a href="#好评剧增（2019年3月～2019年12月）" class="headerlink" title="好评剧增（2019年3月～2019年12月）"></a>好评剧增（2019年3月～2019年12月）</h4><p>就在2019年的3月末的时候，我偶然打开了 App Connect，发现这个 app 居然有30多个评论，而且几乎都是五星好评。而且有一个评论留言说在 iPhone X 有些 bug，于是我就立刻修复并提交了。从那以后我就一直特别关注并不断迭代这个 app 了。</p>
+<img src="/2020/04/30/my-first-100k-app/2019.jpg" class="">
+
+<p>我也是从那时才关注后台的数据，原来之前很长一段时间里，这个 app 的下载量都不是很多，每天最多也不到20个下载。2019年3月14日是个奇怪的日子，那一天是这个app第一次爆发的时间，居然有459个下载（如图箭头所示）！因为那时我没做过任何推广，所以也不知道是因为什么带来了这么多下载。从那天以后，每天的下载量也慢慢变多了，除去偶尔的几天爆发，下载量逐渐从每天不到100增加到了不到300。</p>
+<p>2019年4月17日，总下载量突破了 1W，这也是我从来没想到过的。而就是在这一天，我差一点就把这个 app 卖掉了。专门收购 app 的公司找到我，前后三个人和我联系，提出以5000元买下这个 app。当时的我确实很拮据，也差一点动心了，最后也没答应，现在回想起来真是幸亏啊～</p>
+<p>这期间的版本是从 v1.5 升级到了 v2.4，主要的迭代内容有：</p>
+<ul>
+<li><strong>新增了 app 的中文名称</strong>，一开始是「极简翻页时钟」，后来觉得太长了，不符合极简的风格，于是在 v2.0 的时候更名为「极简时钟」。</li>
+<li><strong>UI 上更加极简了</strong>，把所有页面间导航的按钮都去掉了，全部用手势替换。</li>
+<li>增加了很多的反馈中都强烈需要的<strong>竖屏模式</strong>和<strong>正计时</strong>。</li>
+<li>加入了 <strong>Buy me a coffee</strong> 的 IAP。一开始是纯捐赠，不为赚钱，交个朋友，后来加入了第一个付费解锁的功能。</li>
+</ul>
+<h4 id="隔离红利（2020年1月～4月）"><a href="#隔离红利（2020年1月～4月）" class="headerlink" title="隔离红利（2020年1月～4月）"></a>隔离红利（2020年1月～4月）</h4><p>2020年对所有人来说都是极为特殊的一年，短短三个月内我们就见证了各种历史。<br>而 ZFC 在这一年头三个月里也是产生了各种新数据，完完全全是我没有预料到的。<br>从数据上来看，ZFC 就是从疫情公布后开始下载量开始猛增，进入2月份后每天的下载量更是超过了1K。</p>
+<img src="/2020/04/30/my-first-100k-app/201912-202004.png" class="">
+
+<p>2020年3月16日，ZFC 的总下载量达到了10W🎉，这个数字对我来说就像梦一样.得益于疫情期间的爆发增长，ZFC 实际上光是在2020年第一个季度的总下载量就已经突破了10W，其中4月23日这一天不知道被谁推荐了，日下载量更是达到了史无前例的2.5K。 造成这种现象的原因我称之为 <strong>「隔离红利」</strong>。具体原因我会在下面推广里简单地分析一下。</p>
+<p>在这期间里，版本从 v2.5 迭代到了 v2.8，主要新增功能有：</p>
+<ul>
+<li>更改了 <strong>IAP 的类型</strong>，原来消耗性，改成了非消耗性，也就是购买一次就可以多设备同步购买记录了</li>
+<li>重新设计了<strong>设置的页面</strong></li>
+<li>计时器增加了<strong>暂停</strong>的功能</li>
+<li>增加了<strong>新的浅色主题</strong></li>
+<li>针对中文增加了<strong>古代十二时辰</strong>的表示</li>
+<li>各种产生bug并修复bug😓</li>
+</ul>
+<img src="/2020/04/30/my-first-100k-app/light.jpg" class="">
+
+<h3 id="快乐源泉"><a href="#快乐源泉" class="headerlink" title="快乐源泉"></a>快乐源泉</h3><p>在发现越来越多的人给 ZFC 评分后，我就特别关注所有的评价留言了。一开始我不知道 App Connect 有通知的功能，每天还自己憨憨地手动刷新。基本上95%的评价我都回复过了，有问题的我就解答，没有问题的我就感谢，我也从中获得了很多灵感，可以说 ZFC v1.4 以后的功能都是这些用户提出的需求，如果只是满足我个人的使用需求的话，这个 app 不会迭代到今天。</p>
+<img src="/2020/04/30/my-first-100k-app/comments.jpg" class="">
+
+<p>有一个沙特的用户，第一次评价给了一星，说是不喜欢付费的项目，我解释后第二次评价给了四星，但是内容已经是十分肯定并且说会推荐给其他人用，我又回复后终于在第三次评价给了五星🤣。</p>
+<p>现在，每天最希望看到的通知就是 App Connect 的通知，尤其是早上醒来发现又有好多留言，特别开心。</p>
+<img src="/2020/04/30/my-first-100k-app/notifications.jpg" class="">
+
+<p>更开心的就是很多用户的用心留言，有给出特别中肯的建议的，有对 app 中的不足给予详细分析的，也有代替我把整个 app 的使用方法和特点写得特别详细的，特别是下面这个，写满了一个屏幕的评论，看到的时候我真是感动坏了（真不是托啊）。</p>
+<img src="/2020/04/30/my-first-100k-app/review.png" class="">
+
+<p>也曾经得到国外用户的夸张评价😂。</p>
+<img src="/2020/04/30/my-first-100k-app/review_jp.png" class="">
+
+<h3 id="推广"><a href="#推广" class="headerlink" title="推广"></a>推广</h3><p>在2020年之前，我几乎没做过什么推广，也就是在三两个开发者的群里自荐了一下。</p>
+<p>2020年2月1日，我在 V2EX 上发了个分享贴，附上了20个兑换码，就在那一天的下载量第一次突破了1K，然而之后的20天内的日下载量又降到了1K以内。</p>
+<p>尝试过给 PriceTag 投稿，两次被采用，不过只是在很小的板块里出现过，公众号并没有出现过。</p>
+<p>也尝试过给苹果写自荐申请，无果。</p>
+<p>所以，直到隔离红利到来之前，这个 app 完全是自然增长的。</p>
+<p>上面提到的「隔离红利」，是我对疫情期间的一个现象的总结。就是，很多人不得不在家隔离，于是很多人居然开始自学一些东西了。尤其是学生群体，无法返校，再加上网课等等因素，出现了非常非常多的「学习 vlog」。我是在B站上偶然发现这个现象的，很多人一边学习的同时一边旁边摆个计时器，或者正计时或者倒计时，又或者只是显示时间。搜索「study with me」，你就会找到这样的视频，绝大部分都是学生，初高中到大学研究生博士生都有，备战考研和考证的尤其多。我在上面发现了使用 ZFC 的视频，也有专门推荐 ZFC 的视频，很是激动，于是就主攻在B站上进行 ZFC 的推广了，而且我都是纯人肉推广……具体推广的操作会在以后单独写一个 blog，而且我也在准备制作关于 ZFC 的 vlog。</p>
+<h3 id="教训"><a href="#教训" class="headerlink" title="教训"></a>教训</h3><p>一直以来，ZFC 都是零崩溃，一方面是由于用的人很少，但更重要的一点是这个 app 的功能真的很少很简单，所以几乎不会崩溃。但是今年3月却发生了一次大规模的崩溃，令这个 app 每天的下载量连续几天都在下降，而且还收获了不少差评。</p>
+<p>这次的崩溃只会在 iPhone 上出现，iPad 就没有这个问题，因为是 iPhone 上的布局约束出了问题。当时我被各种屏幕尺寸搞得头晕眼花，而且还着急上架这个新版本，所以居然没发现这么一个大问题。但是，苹果的审核员居然也没发现，就这么通过上架了……教训是惨痛的，虽然 iPhone 用户不到三成，但是一共有将近2000个崩溃记录，所以肯定造成了一定的不良影响。</p>
+<p>从那以后，我每次发新版本都会用一个表格，把所有的功能点和设备都列出来，一个一个 check……因为很多操作都是 UI 视觉方面的，所以没有使用自动化测试。</p>
+<h3 id="一些发现"><a href="#一些发现" class="headerlink" title="一些发现"></a>一些发现</h3><p>在 v2.7.2 我才接入 app analytics，于是每天看数据也是一个很有意思的事情，再加上 App Connect 里的统计，我从中发现了很多令我意外的东西。</p>
+<ul>
+<li>原来使用 ZFC 的设备中75%都是 iPad，而对 iPad 的适配是在 v2.0 才加入的，也就是初上架后的10个月。</li>
+<li>付费率是千分之二😂。</li>
+<li>尽管我支持了四种语言，但是大陆用户还是占了所有用户的90%左右，不过其他国家的用户也在逐渐增多，只不过非常慢（枉费我一直做国际化的心机）。</li>
+<li>iPad 机型碎片化好严重啊，各种尺寸，原来只有7.9寸和9.7寸，现在又多了10.5、11、12.9……居然还有个一个10.2寸的 iPad 7，我唯独落下了这个型号的 iPad，于是有人反馈字体大小有问题……后来查看统计数据才发现这个型号的 iPad 是使用 ZFC 第二多的😓。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个 app 能取得如此成绩是我万万没想到的，也从未想过这么简单的一个 app 居然能得到这么多人的喜欢。很多用户都是因为免费无广告选择了这个 app，并且留言希望以后也不要有广告，我都会一一回复保证永远不加广告，这是我的初衷，也是我的底线。</p>
+<p>免费也是另外一个初衷，不过迫于生计，我也加入了一些需要付费才能解锁的功能，但其实免费的功能就足够用了。多亏了所有捧场的付费用户，在成为独立开发者的四年后，我第一次收到了苹果爸爸的打款，而且两个月的时间就把这些年的开发者会员费给赚回来了，非常开心😄。</p>
+<p>说回来，为什么要做成极简的风格呢，原因很简单，个人设计能力不行😂，所以尽可能少用控件，即使要用也尽量使用 iOS 原生的控件。</p>
+<p>就在刚刚，发现 ZFC 居然挤进了 iPad 的排行榜（生活类）里，而且居然是第13名，又一个新纪录！</p>
+<img src="/2020/04/30/my-first-100k-app/rank.jpeg" class="">
+
+<p>最后，希望 ZFC 能进入苹果的首页推荐（人生成就之一），祝各位使用 ZFC 的用户学业顺利！</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91%E8%80%85/" rel="tag"># 独立开发者</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/26/2019-summary/" rel="prev" title="2019年终总结">
+      <i class="fa fa-chevron-left"></i> 2019年终总结
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机"><span class="nav-number">1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发过程"><span class="nav-number">2.</span> <span class="nav-text">开发过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初上架（2017年8月～2018年9月）"><span class="nav-number">2.1.</span> <span class="nav-text">初上架（2017年8月～2018年9月）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#好评剧增（2019年3月～2019年12月）"><span class="nav-number">2.2.</span> <span class="nav-text">好评剧增（2019年3月～2019年12月）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隔离红利（2020年1月～4月）"><span class="nav-number">2.3.</span> <span class="nav-text">隔离红利（2020年1月～4月）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快乐源泉"><span class="nav-number">3.</span> <span class="nav-text">快乐源泉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推广"><span class="nav-number">4.</span> <span class="nav-text">推广</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#教训"><span class="nav-number">5.</span> <span class="nav-text">教训</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些发现"><span class="nav-number">6.</span> <span class="nav-text">一些发现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

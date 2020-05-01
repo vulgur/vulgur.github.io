@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这一篇 blog 是专门介绍如何仿写知乎日报的侧边栏菜单，主要介绍如何构建 UI 以及一个渐隐的图层效果，和如何控制侧边栏的显示和隐藏。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿写知乎日报：侧边栏菜单">
+<meta property="og:url" content="https://vulgur.github.io/2016/01/22/zhihu-3/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="这一篇 blog 是专门介绍如何仿写知乎日报的侧边栏菜单，主要介绍如何构建 UI 以及一个渐隐的图层效果，和如何控制侧边栏的显示和隐藏。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/22/zhihu-3/sidebar.gif">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/22/zhihu-3/sidebar_xib.png">
+<meta property="og:image" content="https://vulgur.github.io/2016/01/22/zhihu-3/list_bottom.gif">
+<meta property="article:published_time" content="2016-01-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-06-12T11:27:09.517Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="仿写">
+<meta property="article:tag" content="CALayer">
+<meta property="article:tag" content="UIGestureRecognizer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2016/01/22/zhihu-3/sidebar.gif">
+
+<link rel="canonical" href="https://vulgur.github.io/2016/01/22/zhihu-3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>仿写知乎日报：侧边栏菜单 | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2016/01/22/zhihu-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          仿写知乎日报：侧边栏菜单
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-22 00:00:00" itemprop="dateCreated datePublished" datetime="2016-01-22T00:00:00+08:00">2016-01-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-12 19:27:09" itemprop="dateModified" datetime="2019-06-12T19:27:09+08:00">2019-06-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5/" itemprop="url" rel="index"><span itemprop="name">知乎日报</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这一篇 blog 是专门介绍如何仿写知乎日报的侧边栏菜单，主要介绍如何构建 UI 以及一个渐隐的图层效果，和如何控制侧边栏的显示和隐藏。</p>
+<img src="/2016/01/22/zhihu-3/sidebar.gif" class="" title="侧边栏菜单">
+<a id="more"></a>
+
+<p>##界面</p>
+<p>首先是画 UI。侧边栏的 UI 比较简单，由上到下分别是：</p>
+<ol>
+<li>头像和登录按钮</li>
+<li>收藏、消息和设置按钮</li>
+<li>专栏的列表</li>
+<li>离线下载和切换主题的按钮</li>
+</ol>
+<p>用 xib 做出来就是这样子：</p>
+<img src="/2016/01/22/zhihu-3/sidebar_xib.png" class="" title="xib">
+
+<p>值得一提的是专栏列表的底部，在滑动的时候会有一个渐隐的效果，如图所示：</p>
+<img src="/2016/01/22/zhihu-3/list_bottom.gif" class="" title="列表底部的渐隐">
+
+<p>实现这个效果的第一个想法是在 UITableView 的底部改一个带渐变效果的透明 UIView，但是原版中处于渐隐效果的底部 Cell 也是可以点击的，这样子遮罩的 UIView 还要处理一下点击事件，麻烦，弃用！第二个想法就和 Part 2 中一样，给 UITableView 设置一个 CAGradientLayer，专门在底部加一个渐变的效果，但是试验了几次，发现渐变的效果十分不理想，所以也放弃了。</p>
+<p>最后的解决方案，也是我无意中发现的。UIView 的 layer 有个属性是 mask, 根据文档里面写的，这也是个 CALayer，用来给 layer 的 alpha 通道设置遮罩。但是，这个属性必须在滚动的时候不断重新设置，不然遮罩会固定在一个地方。所以更新的代码就在 scrollViewDidScroll: 里：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</span><br><span class="line">    <span class="built_in">UIColor</span> *backgroundColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">0.106</span> green:<span class="number">0.125</span> blue:<span class="number">0.141</span> alpha:<span class="number">1</span>];</span><br><span class="line">    <span class="built_in">CAGradientLayer</span> *gradientLayer = [<span class="built_in">CAGradientLayer</span> layer];</span><br><span class="line">    gradientLayer.frame = <span class="keyword">self</span>.menuTableView.bounds;</span><br><span class="line">    gradientLayer.colors =</span><br><span class="line">    	@[ (<span class="keyword">id</span>)[<span class="built_in">UIColor</span> clearColor].CGColor, (<span class="keyword">id</span>)backgroundColor.CGColor];</span><br><span class="line">    gradientLayer.endPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.5</span>, <span class="number">0.8</span>);</span><br><span class="line">    gradientLayer.startPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.5</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">self</span>.menuTableView.layer.mask = gradientLayer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码实现的就是每次滚动的时候，都新建一个 CAGradientLayer，设置好大小、渐变的颜色和位置，然后将其赋给 UITableView 的 layer 的 mask。但是这样肯定会有性能问题，可我也没想到其他的方法，如果有更好的解决方案还请赐教！</p>
+<h2 id="View-层次"><a href="#View-层次" class="headerlink" title="View 层次"></a>View 层次</h2><p>弄好了 UI，接下来就是交互操作了。显示侧边栏有两个方式：一是点击主页面左上角的菜单按钮，二是向右滑动。同样隐藏侧边栏也有两个方式：一是点击主页面的任意区域，二是向左滑动。两个的根本区别就是，一个是 tap，一个是 slide。</p>
+<p>这里先说一个 Part 1 中遗留的东西，就是主页面的 view （以下简称 main view）是 HomeViewController 的 view（下面简称 root view） 的一个 subview。为什么要多套这一层呢？我最开始做的时候是没有这一层的，也就是 root view 就是主页面的 View，侧边栏的 view （以下简称 side view）是作为 root view 的 subview 放在 root view 的左侧。移动两个 view 的动画代码就是这个样子的（半伪代码，示意而已）：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">UIView</span> animateWithDuration:kSideMenuAnimationDuration</span><br><span class="line">                     animations:^&#123;</span><br><span class="line">                     	<span class="keyword">self</span>.view.left = <span class="number">225</span>;</span><br><span class="line">                     	<span class="keyword">self</span>.sideMenuVC.view.left = <span class="number">0</span>;</span><br><span class="line">                     &#125;];</span><br></pre></td></tr></table></figure>
+
+<p>就是 root view 和 side view 同时向右移动一段距离。但是这样做的话，root view 向右移动后，side view 也无法显示出来，只是一个同样大小的黑色区域。我用 Reveal 看了一下，移动后 root view 的 frame 也右移了，也就是 origin 不在屏幕的左上角，而 side view 仍然是在 root view 的 bounds 之外（我猜想这是无法显示的原因）。</p>
+<p>尝试之后，我的解决方法就是，main view 和 side view 都作为 root view 的 subview，移动的只是 main view 和 side view， 而 root view 是固定不动的，这就是多了一层的原因。</p>
+<h2 id="Tap-操作"><a href="#Tap-操作" class="headerlink" title="Tap 操作"></a>Tap 操作</h2><p>首先说如何通过点击来显示和隐藏侧边栏。因为我所有的 UI 都是靠 AutoLayout 来控制的，所以侧边栏和主页面的位置变换的动画也是用 AutoLayout。</p>
+<p>HomeViewController 在加载的时候把 side view 加入到 root view 中，设置好位置和大小，这里的代码就不贴了。下面是点击菜单按钮显示侧边栏的代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)showSideMenu:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    <span class="keyword">self</span>.homeViewLeft.constant = <span class="number">225</span>;</span><br><span class="line">    <span class="keyword">self</span>.homeViewRight.constant = <span class="number">-225</span>;</span><br><span class="line">    [<span class="keyword">self</span>.homeView setNeedsUpdateConstraints];</span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:kSideMenuAnimationDuration</span><br><span class="line">                     animations:^&#123;</span><br><span class="line">                         <span class="keyword">self</span>.sideMenuVC.view.left = <span class="number">0</span>;</span><br><span class="line">                         [<span class="keyword">self</span>.view layoutIfNeeded];</span><br><span class="line">                     &#125;</span><br><span class="line">                     completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">                         <span class="comment">// setup transparent view for tapping to hide the side menu</span></span><br><span class="line">                         <span class="keyword">self</span>.tapView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="keyword">self</span>.homeView.bounds];</span><br><span class="line">                         <span class="keyword">self</span>.tapView.backgroundColor = [<span class="built_in">UIColor</span> clearColor];</span><br><span class="line">                         [<span class="keyword">self</span>.tapView addGestureRecognizer:<span class="keyword">self</span>.tapToHideSideMenu];</span><br><span class="line">                         [<span class="keyword">self</span>.homeView addSubview:<span class="keyword">self</span>.tapView];</span><br><span class="line">                         <span class="keyword">self</span>.isShowSideMenu = <span class="literal">YES</span>;</span><br><span class="line">                     &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码中的 homeViewLeft 和 homeViewRight 是从 StoryBoard 中拖过来的约束，通过改变这两个约束的值来移动 main view。</p>
+<p>原版中侧边栏滑出后，移到右侧的 main view 就不可以上下滑动内容了，只可以点击或滑动隐藏侧边栏菜单。所以在上面的代码中，动画结束后，新建一个 tapView 盖在 main view 上面，这样就无法直接操作 main view 了，然后给这个 tapView 添加一个 tap 的手势，这个手势就是用来隐藏侧边栏的。下面是隐藏的代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)hideSideMenu &#123;</span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:kSideMenuAnimationDuration</span><br><span class="line">                     animations:^&#123;</span><br><span class="line">                         <span class="keyword">self</span>.homeView.left = <span class="number">0</span>;</span><br><span class="line">                         <span class="keyword">self</span>.sideMenuVC.view.left = <span class="number">-255</span>;</span><br><span class="line">                     &#125;</span><br><span class="line">                     completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">                         [<span class="keyword">self</span>.tapView removeGestureRecognizer:<span class="keyword">self</span>.tapToHideSideMenu];</span><br><span class="line">                         [<span class="keyword">self</span>.tapView removeFromSuperview];</span><br><span class="line">                         <span class="keyword">self</span>.isShowSideMenu = <span class="literal">NO</span>;</span><br><span class="line">                     &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个动画里没有使用 AutoLayout，还是用 frame 来操作位置。在隐藏动画结束后，顺便把 tapView 干掉。</p>
+<h2 id="Slide-操作"><a href="#Slide-操作" class="headerlink" title="Slide 操作"></a>Slide 操作</h2><p>另外一种交互就是向左向右滑动，这里就用到了 UIPanGestureRecognizer。</p>
+<p>滑动的细节有两点：</p>
+<ol>
+<li>side view 和 main view 随着滑动手势同步移动。</li>
+<li>如果向右滑动到某一阈值，side view 就自动完全显示出来。反之，side view 就完全隐藏。</li>
+</ol>
+<p>具体实现就是给 main view 添加一个 ‘UIPanGestureRecognizer’，手势的 action 代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)handlePanGesture:(<span class="built_in">UIPanGestureRecognizer</span> *)recognizer &#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> offsetX = [recognizer translationInView:<span class="keyword">self</span>.homeView].x;</span><br><span class="line">    <span class="keyword">if</span> (offsetX &gt; <span class="number">0</span> &amp;&amp; offsetX &lt; kSideMenuWidth) &#123;</span><br><span class="line">        <span class="keyword">self</span>.sideMenuVC.view.right = offsetX;</span><br><span class="line">        <span class="keyword">self</span>.homeViewLeft.constant = offsetX;</span><br><span class="line">        <span class="keyword">self</span>.homeViewRight.constant = -offsetX;</span><br><span class="line">        [<span class="keyword">self</span>.homeView layoutIfNeeded];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (recognizer.state == <span class="built_in">UIGestureRecognizerStateEnded</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (offsetX &gt;= kSideMenuWidth / <span class="number">2</span>) &#123;</span><br><span class="line">            [<span class="keyword">self</span> showSideMenu:<span class="literal">nil</span>];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            [<span class="keyword">self</span> hideSideMenu];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码中，第一个 if 是用 AutoLayout 和 frame 根据滑动距离同时移动两个 view；第二个 if 就是手势结束时判断是要隐藏还是显示，如果超过侧边栏宽度的一半，就进行显示动画，反之就进行隐藏动画。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BB%BF%E5%86%99/" rel="tag"># 仿写</a>
+              <a href="/tags/CALayer/" rel="tag"># CALayer</a>
+              <a href="/tags/UIGestureRecognizer/" rel="tag"># UIGestureRecognizer</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/01/08/zhihu-2/" rel="prev" title="仿写知乎日报：主页面补遗">
+      <i class="fa fa-chevron-left"></i> 仿写知乎日报：主页面补遗
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/04/14/reveal-calendar/" rel="next" title="用 Reveal 分析系统日历应用（碰到了一个大坑）">
+      用 Reveal 分析系统日历应用（碰到了一个大坑） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#View-层次"><span class="nav-number">1.</span> <span class="nav-text">View 层次</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tap-操作"><span class="nav-number">2.</span> <span class="nav-text">Tap 操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Slide-操作"><span class="nav-number">3.</span> <span class="nav-text">Slide 操作</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

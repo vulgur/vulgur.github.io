@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="就在昨天，我终于啃完了《稀缺》这本书，从2019-02-25开始读，2019-03-30结束，持续了一个月的时间，但其实真正的阅读时长是8小时。不太清楚一开始是从哪里看到这本书的介绍了，好像是「得到」吧。一开始是抱着希望能得到一些关于理财和资源优化配置方法的期待去读这本书的，没想到读下来完全不是这么一回事。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《稀缺》阅后总结以及谈谈和996的关联性">
+<meta property="og:url" content="https://vulgur.github.io/2019/03/31/scarcity/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="就在昨天，我终于啃完了《稀缺》这本书，从2019-02-25开始读，2019-03-30结束，持续了一个月的时间，但其实真正的阅读时长是8小时。不太清楚一开始是从哪里看到这本书的介绍了，好像是「得到」吧。一开始是抱着希望能得到一些关于理财和资源优化配置方法的期待去读这本书的，没想到读下来完全不是这么一回事。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2019/03/31/scarcity/book.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2019/03/31/scarcity/juggle.jpg">
+<meta property="og:image" content="https://vulgur.github.io/2019/03/31/scarcity/996.png">
+<meta property="article:published_time" content="2019-03-31T02:19:11.000Z">
+<meta property="article:modified_time" content="2019-06-12T11:38:14.748Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="996">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2019/03/31/scarcity/book.jpg">
+
+<link rel="canonical" href="https://vulgur.github.io/2019/03/31/scarcity/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>《稀缺》阅后总结以及谈谈和996的关联性 | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2019/03/31/scarcity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《稀缺》阅后总结以及谈谈和996的关联性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-31 10:19:11" itemprop="dateCreated datePublished" datetime="2019-03-31T10:19:11+08:00">2019-03-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-12 19:38:14" itemprop="dateModified" datetime="2019-06-12T19:38:14+08:00">2019-06-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book/" itemprop="url" rel="index"><span itemprop="name">book</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>就在昨天，我终于啃完了《稀缺》这本书，从2019-02-25开始读，2019-03-30结束，持续了一个月的时间，但其实真正的阅读时长是8小时。不太清楚一开始是从哪里看到这本书的介绍了，好像是「得到」吧。一开始是抱着希望能得到一些关于理财和资源优化配置方法的期待去读这本书的，没想到读下来完全不是这么一回事。</p>
+<img src="/2019/03/31/scarcity/book.jpg" class="">
+
+<a id="more"></a>
+
+<p>为什么我一开始用的字是「啃」呢，全书的前三分之二都在讲稀缺的原理和影响，还举了无数个日常例子和调查研究来验证，直到最后不到三分之一才给出了解决稀缺的一些方法。整个过程大部分都是枯燥的，所以我拖了一个多月才读完，但是和得到的收获相比这点枯燥就不算什么了。</p>
+<p>下面对这本书进行一些干货提纯。</p>
+<h3 id="什么是稀缺？"><a href="#什么是稀缺？" class="headerlink" title="什么是稀缺？"></a>什么是稀缺？</h3><p>这本书讨论的稀缺（scarcity）不是指客观上的缺乏和不足，而是一种心态，是一种「拥有」少于「需要」的感觉。</p>
+<p>这种感觉可以体现在很多方面，无论是抽象还是具体，其中最最突出的就是时间、金钱、空间这三种，这三个也是书中举例最多的三种。</p>
+<h3 id="稀缺会造成什么影响？"><a href="#稀缺会造成什么影响？" class="headerlink" title="稀缺会造成什么影响？"></a>稀缺会造成什么影响？</h3><p>稀缺会俘获大脑，并存在于潜意识中，对大脑产生本能级别的影响，尤其是俘获我们的注意力，进而改变我们的思维方式，影响我们的决策和行为。</p>
+<p>下面介绍几个由稀缺产生的影响。</p>
+<h4 id="专注红利"><a href="#专注红利" class="headerlink" title="专注红利"></a>专注红利</h4><p>当稀缺俘获大脑的时候，人们的注意力就会增强，集中在紧急的事情上（注意，只是「紧急」）。这时候人们就会变得心无旁骛，将手里的资源最大化利用，从而提升工作效率，这就是稀缺带来的积极影响，叫做「专注红利」。最最常见的专注红利就是截止日期前的赶工，正所谓「deadline 是第一生产力」，用专注红利就能解释这个现象。</p>
+<p>但是，假装的稀缺并不会产生专注红利。也就是说自己给自己设定的 deadline 并不能提高学习和工作的效率，我想这也就很多人（比如我）总是先给自己订下某某日必须完成某事但总也失败的原因。</p>
+<p>稀缺能产生的唯一积极作用就是专注红利，而且这一积极的作用相比较带来的负面影响来看，虽然从短期来看有一些优势，但从长远来看其实损失更大。</p>
+<h4 id="管窥"><a href="#管窥" class="headerlink" title="管窥"></a>管窥</h4><p>因为专注于某一事物，人们往往就会忽略其他事物，这个现象就是「管窥」，也叫「隧道视野」，和成语「坐井观天」的意象很类似，不过意义并不一样。</p>
+<p>管窥改变的是人们做出决策的方式，因为短视导致了对其他事物的忽视。这样的体会比比皆是，比如废寝忘食。忽视的背后是因为管窥放大了管子外事物的成本，缩小了管子外事物的收益，简单地说就是人们不愿意花时间在管子外的事物上，也会低估管子外事物带来的收益。书里的例子之一就是 deadline 来临之际，除了完成手上的任务人们往往不会去按时健身或者按时睡觉。</p>
+<p>由于管窥心态产生的心智负担和不利影响叫做「管窥负担」。这种负担最普遍的例子就是省小钱丢大钱，比如不买保险和一些没次看起来没多少但是积累起来就非常惊人的消费活动。</p>
+<p>管窥的另一个表现就是让人们想同时处理多项任务，也就是多线程工作。因为时间上的稀缺，人们都想尽量地节省时间，这一点点的节省正是隧道视野带来的收益，但是因为一心多用产生的问题就是管子外的事情了。</p>
+<p>我的老婆和父母在看孩子的时候总看手机，不是各种小视频就是各种乱七八糟的公众号新闻，他们总说虽然在看手机，可还是有注意力在孩子身上的。我就用管窥的原理去劝说他们，可结果是他们不置可否……</p>
+<h3 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h3><p>这本书的带宽指的是人们的认知能力和执行控制力。带宽并非是固定不变的，而稀缺就会直接减少当下可用的带宽，形成带宽负担，也就是降低认知能力和执行控制力，从而造成一系列负面影响。</p>
+<p>因为带宽负担的存存，人们无法做出正确的判断，也无法理智地控制自己，即让人变笨和更加冲动。</p>
+<p>我认为带宽是本书最重要的概念，因为稀缺造成的各种负面影响都可以由带宽来解释，自然解决稀缺问题也必须从带宽来入手。</p>
+<h3 id="余闲"><a href="#余闲" class="headerlink" title="余闲"></a>余闲</h3><p>如果不存在稀缺的心态，也就是说我们有足够的资源，那么这时候的状态就是「余闲」。</p>
+<p>余闲可以避免选择上的纠结，我们的决策可以轻松地从「选哪个好呢？」直接变成「我全都要！」。</p>
+<h3 id="借用"><a href="#借用" class="headerlink" title="借用"></a>借用</h3><p>这个概念很简单，就是用明天的钱还今天的账。当然，借用不只是发生在金钱上，时间上也是可以的，比如「技术负债」也是一种借用。从长远来看，借用会进一步加剧稀缺，严重的稀缺又会造成严重的借用，从而导致恶性循环。</p>
+<p>因为稀缺，因为管窥，因为短视，借用是一定会发生的，无论稀缺的形式是什么。人们总是过高地估计眼下的利益，而忽视未来的利益，这就是「现时偏见」。</p>
+<p>拖延症也是一种借用：</p>
+<blockquote>
+<p>将一件重要但不紧急的事务搁置一旁，与借用无异。你通过不去做这件事情，而为今天赚得了时间，但却增加了未来的成本，因为你早晚要借用其他时间（很可能是更多时间）来处理这件事。与此同时，你也许会因为没有做这件事情而付出成本，或损失这件事情可能带来的收益。</p>
+</blockquote>
+<p>因为稀缺造成的管窥，人们只会集中注意力去解决那些紧急的事情（不管是否重要），但会忽视或搁置那些重要但不紧急的事情，而这些事情才是对工作、生活乃至整个人生来说收益最大的。</p>
+<h3 id="稀缺陷阱"><a href="#稀缺陷阱" class="headerlink" title="稀缺陷阱"></a>稀缺陷阱</h3><p>有助于形成稀缺的情况就是「稀缺陷阱」，比如对时间和金钱不合理地分配和使用。</p>
+<p>为什么我们一直疲于奔命？作业一个接着一个，deadline 一个接着一个，待还的账单一个接着一个，好像我们时刻都在面临着「最后关头」，书中将这种状态比作「抛球的杂耍」。</p>
+<blockquote>
+<p>杂耍，就是人们将可预期事件当成突如其来事件进行处理的根源。杂耍时，你从“管子”视野中只能看到即将落入手中的球，而会忽视抛在空中尚未落下的其他几个球。当那几个球“突然”降落时，对于用管窥心态看问题的杂耍玩家来说，这些球就是新的“震惊”。</p>
+</blockquote>
+<img src="/2019/03/31/scarcity/juggle.jpg" class="">
+
+<p>这种杂耍的状态并不一定真的是由时间太少和任务太多造成的，究其原因是因为大脑中装了太多的事情，也就是带宽都用来为空中的那些球而焦虑了，也就是带宽不足。</p>
+<h3 id="穷人为什么贫穷"><a href="#穷人为什么贫穷" class="headerlink" title="穷人为什么贫穷"></a>穷人为什么贫穷</h3><p>书里专门用一个章节以稀缺的角度来解释贫穷的原因。</p>
+<p>稀缺是不分高低贵贱的，穷人和富人都会遇到稀缺的状况，尽管稀缺的类型可能不一样，但是管窥、借用、带宽负担都是相同的。不同的是富人更有能力和资源来抵御稀缺带来的压力和负面影响。</p>
+<p>可能许多人觉得穷人之所以穷是因为懒惰和无能，还有可能是因为没有接受过良好的教育。但其实无能于贫困之间的因果关系反过来也是可以的，即稀缺导致了无能。一个人的经济状况很大程度上受环境所限，尤其是只能通过劳动力来维持生计的人们，再加上家庭原因或者其他事故，这些人的带宽负担过重，导致他们深陷稀缺的陷阱中，无法规划未来和提升自己。穷人缺钱，但更缺的是带宽。</p>
+<p>所以只要是生存于贫困之中，所有人都会变得无能。</p>
+<h3 id="如何摆脱稀缺"><a href="#如何摆脱稀缺" class="headerlink" title="如何摆脱稀缺"></a>如何摆脱稀缺</h3><p>终于写到了对我们来说最最关键的部分了，下面总结了几个可以解决稀缺的方法。</p>
+<h4 id="1-提前发出警报"><a href="#1-提前发出警报" class="headerlink" title="1. 提前发出警报"></a>1. 提前发出警报</h4><p>一些中长期的项目，比如作业，比如一个开发任务，比如每月的账单，将总时间分割成几个时间点，或者是制定更加频繁的截止日期，在每个时间点给自己发送提醒，这样就不会等到最后关头再去手忙脚乱或者拆东墙补西墙了。</p>
+<h4 id="2-构建缓冲用的余闲"><a href="#2-构建缓冲用的余闲" class="headerlink" title="2. 构建缓冲用的余闲"></a>2. 构建缓冲用的余闲</h4><p>准备一个专门用来处理突发事件的余闲，比如一个额外的硬盘，比如不做任何安排的一个周末，比如一些家里的备用金。这些余闲看起来是冗余的，但是正是这些余闲会避免管窥和借用，不至于让你在稀缺陷阱中越陷越深。</p>
+<h4 id="3-把重要的事情放在管子里"><a href="#3-把重要的事情放在管子里" class="headerlink" title="3. 把重要的事情放在管子里"></a>3. 把重要的事情放在管子里</h4><p>也就是不断提醒自己去处理那些重要但不紧急的事情，这样这些事情就不会因为一直在管子外而被忽视掉。但是这些提醒最好由其他人来帮忙，或者辅助你来完成。</p>
+<h4 id="4-让「忽略」等同于「默许」"><a href="#4-让「忽略」等同于「默许」" class="headerlink" title="4. 让「忽略」等同于「默许」"></a>4. 让「忽略」等同于「默许」</h4><p>忽略问题的存在，乍听还以为是管窥的一种体现，不过这里指的是将一些重要但不紧急的事情按照默许的规则自动处理，就好像不存在一样。</p>
+<p>这种做法尤其适用于重复性高而且可预测的事件，比如为了强制储蓄的自动转存，比如按时还款的自动还款。</p>
+<h4 id="5-保持警觉"><a href="#5-保持警觉" class="headerlink" title="5. 保持警觉"></a>5. 保持警觉</h4><p>行为的选择有两种形式，一种需要多次保持警醒，比如去健身，吃健康食品，另一种是一次性解决，比如买一个咖啡机，这样就不用出去花更多的钱买咖啡了。</p>
+<p>在管窥心态下，一次性地去做正确的事情，要比重复去做正确的事情要容易得多。也就是一步到位地解决问题，多次行为就会增加给自己挖坑的机会，还会给自己增加带宽负担。所以，只要有可能，就最好将警醒型行为转变成一次性行为。</p>
+<p>但是，有的时候也需要反过来操作。有一些事情分开来做的收益明显大于一次性的收益，比如贷款，比如一些服务的年卡，比如一些总在变化的选择。</p>
+<h4 id="6-管理带宽"><a href="#6-管理带宽" class="headerlink" title="6. 管理带宽"></a>6. 管理带宽</h4><p>对带宽的管理最重要的就是如何节省带宽，减少带宽负担。</p>
+<p>有的时候选择太多还不如只有少量几个选择。比如有的 App 复杂而庞大，倒不如选择专精于某一个功能的 App。</p>
+<p>再比如开发软件的时候总想着增加灵活度，但有可能为了包容很少人用到的一个功能就去花费大量的时间和精力。</p>
+<p>所以，节省带宽就是一种断舍离。</p>
+<h3 id="和-996-的关联"><a href="#和-996-的关联" class="headerlink" title="和 996 的关联"></a>和 996 的关联</h3><p>最近几天 996.ICU 在开发圈子里成为了头条。我就我个人经历说下国内的程序员工作状况，经历有限，仅代表个人观点啊。</p>
+<img src="/2019/03/31/scarcity/996.png" class="">
+
+<p>首先，外企真的是轻松。我在校期间分别在 Intel、Adobe 和 IBM 实习过，真的是8小时工作制，上班有可能晚到，但是下班绝对可以到点就走。当然也不是没有加班的情况，但是外企都有着完善的规章制度，加班是真有额外工资的，我有个同学为了国庆期间的三倍日薪就提出主动加班……</p>
+<p>然后是大型互联网公司。我毕业后（2014年）第一个工作是在猎豹移动，员工手册上写的是早10点到晚7点，一周工作5天，但是如果有任务的话周六周日也要上班的。但是开发部门几乎没有晚7点就走的，晚8点晚9点也很少（小白的我曾经在什么都不知道的情况下多次「按时下班」）。但是晚10点走以后一来可以第二天中午12点前打卡考勤，二是可以报销打车费，所以有很多人是为了这个目的晚走的。但更多的还是加班干活，我组的一个小哥哥我就没见过他比我早走过，多次做需求做到后半夜（听说）。我离职后还和原来的同事调侃：你们从来没有在夕阳下下班回家。不过听说我离职后没多久猎豹移动也996了，国内的大厂都一样。</p>
+<p>最后是小型创业公司。从猎豹出来后，我加入了一个小公司。做的是我最喜欢的 iOS 开发，而且工作时间灵活，每天8小时即可，基本上没加过班，还有一两周实行了可以在家远程工作，那段工作经历真是我最难忘的一段时光了。不过后来公司业务调整，为了清理部分员工，强行一周工作6天，不过从那以后不久我就离开了，一直独立开发至今。</p>
+<p>《稀缺》这本书里也有专门的篇幅谈到超时工作的问题，下面是原文：</p>
+<blockquote>
+<p>大约一个世纪之前，亨利·福特（Henry Ford）就认识到了工作时长与带宽之间的关系。他为工人定下了每周40个小时的工时规定，不仅是出于利润方面的考虑，而且也饱含了人文主义情怀。而他进行的为期12年之久的实验，其结果明确显示，将工作日的工作时间从10个小时缩短到8个小时，将每周的工作天数从6天减少到5天，既能增加工人的总产出，又能减少企业的生产成本。福特积极宣扬缩短工作周能为社会带来的益处，坚定地认为增加工人的消费时间对所有人都是一件好事。而他的看法中最核心的一点就是，缩短工作时长能带来更多产出。</p>
+</blockquote>
+<p>除去一些行政手段，只考虑单纯的完成开发任务的话，国内公司的领导或者负责人忽略的就是带宽，因为他们只考虑到了完成项目所需要的时间，而没有考虑到完成项目所需要的带宽。</p>
+<blockquote>
+<p>许多人都用延长工作时间的方式来应对工作上不断增加的压力和需求。但是，这种做法会不可避免地使我们在身体、精神和情感上遭受负面影响，而这又会导致员工的工作积极性下降、分心度提高、离职率增长和医疗费大幅上升</p>
+</blockquote>
+<p>从稀缺的角度来理解的话，对于带宽管理的认识不足以及手段粗暴，是国内996盛行的一个原因吧。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>为了这篇 blog，我又把整本书翻了一遍。这是我第一本在微信读书上看完的书，体验还不错，kindle 上只可以看到多人划线的部分，微信读书不仅如此还可以看到其他人对划线部分的评论，虽然一定程度上影响了读书节奏，不过看看其他人的看法和举例也是不错的收获。</p>
+<p>书里还有大量的例子和研究结论我都没有提及，如果你看了我这篇文章对这本书产生了兴趣，那我建议你还是去读一遍吧。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+  </div>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/996/" rel="tag"># 996</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/18/how-to-avoid-planning-fallacy/" rel="prev" title="如何避免计划谬误">
+      <i class="fa fa-chevron-left"></i> 如何避免计划谬误
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/02/input-issue-1/" rel="next" title="Input - Issue 1">
+      Input - Issue 1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是稀缺？"><span class="nav-number">1.</span> <span class="nav-text">什么是稀缺？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀缺会造成什么影响？"><span class="nav-number">2.</span> <span class="nav-text">稀缺会造成什么影响？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#专注红利"><span class="nav-number">2.1.</span> <span class="nav-text">专注红利</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#管窥"><span class="nav-number">2.2.</span> <span class="nav-text">管窥</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带宽"><span class="nav-number">3.</span> <span class="nav-text">带宽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#余闲"><span class="nav-number">4.</span> <span class="nav-text">余闲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#借用"><span class="nav-number">5.</span> <span class="nav-text">借用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀缺陷阱"><span class="nav-number">6.</span> <span class="nav-text">稀缺陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#穷人为什么贫穷"><span class="nav-number">7.</span> <span class="nav-text">穷人为什么贫穷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何摆脱稀缺"><span class="nav-number">8.</span> <span class="nav-text">如何摆脱稀缺</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-提前发出警报"><span class="nav-number">8.1.</span> <span class="nav-text">1. 提前发出警报</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-构建缓冲用的余闲"><span class="nav-number">8.2.</span> <span class="nav-text">2. 构建缓冲用的余闲</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-把重要的事情放在管子里"><span class="nav-number">8.3.</span> <span class="nav-text">3. 把重要的事情放在管子里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-让「忽略」等同于「默许」"><span class="nav-number">8.4.</span> <span class="nav-text">4. 让「忽略」等同于「默许」</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-保持警觉"><span class="nav-number">8.5.</span> <span class="nav-text">5. 保持警觉</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-管理带宽"><span class="nav-number">8.6.</span> <span class="nav-text">6. 管理带宽</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和-996-的关联"><span class="nav-number">9.</span> <span class="nav-text">和 996 的关联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">10.</span> <span class="nav-text">最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vulgur.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本来这篇 issue 的大纲都写好了差不多将近一个月了，但是最近各种杂事，代码写得不多，也疏于整理 blog 了。好在该忙的基本都忙完了，接下来的日子就是安心 I&#x2F;O 了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Input - Issue 2">
+<meta property="og:url" content="https://vulgur.github.io/2019/05/25/input-issue-2/index.html">
+<meta property="og:site_name" content="Fork my life">
+<meta property="og:description" content="本来这篇 issue 的大纲都写好了差不多将近一个月了，但是最近各种杂事，代码写得不多，也疏于整理 blog 了。好在该忙的基本都忙完了，接下来的日子就是安心 I&#x2F;O 了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vulgur.github.io/2019/05/25/input-issue-2/xzf.png">
+<meta property="article:published_time" content="2019-05-25T05:23:44.000Z">
+<meta property="article:modified_time" content="2020-02-27T08:06:30.168Z">
+<meta property="article:author" content="Wang Shudao">
+<meta property="article:tag" content="swift">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="日语">
+<meta property="article:tag" content="投资">
+<meta property="article:tag" content="经济学">
+<meta property="article:tag" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vulgur.github.io/2019/05/25/input-issue-2/xzf.png">
+
+<link rel="canonical" href="https://vulgur.github.io/2019/05/25/input-issue-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Input - Issue 2 | Fork my life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Fork my life" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Fork my life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vulgur.github.io/2019/05/25/input-issue-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang Shudao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fork my life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Input - Issue 2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-25 13:23:44" itemprop="dateCreated datePublished" datetime="2019-05-25T13:23:44+08:00">2019-05-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-27 16:06:30" itemprop="dateModified" datetime="2020-02-27T16:06:30+08:00">2020-02-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/input/" itemprop="url" rel="index"><span itemprop="name">input</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本来这篇 issue 的大纲都写好了差不多将近一个月了，但是最近各种杂事，代码写得不多，也疏于整理 blog 了。好在该忙的基本都忙完了，接下来的日子就是安心 I/O 了。</p>
+<a id="more"></a>
+
+<h3 id="Books"><a href="#Books" class="headerlink" title="Books"></a>Books</h3><ul>
+<li><strong>新文化日本语 初级1</strong>。最近在多抓鱼上卖书卖上瘾了，整理书的时候发现大学时的日语教材和韩语教材一大堆，就这么直接卖了感觉对不起之前的学习，再加上一直有重新学习日语的念头，于是就打算自己再学一遍后再卖掉。一天一课，目前已看完，待总结。</li>
+<li><strong>新文化日本语 初级2</strong>。这个初级系列一共是4本，可惜第2本丢了，于是只好在多抓鱼上买了一本，目前还差一课读完。</li>
+<li><strong>穷查理宝典</strong>。被无数人推荐的一本书，可是我看起来感觉非常琐碎，再加上投资经历过短，实在是无法理解大神语录的精髓。</li>
+<li><strong>通向财务自由之路</strong>。书名很吸引人，但是前提储备知识不足的我还是读起来太困难了，目前只读完了前两章。</li>
+<li><strong>薛兆丰经济学讲义</strong>。评价很高的一本书，也是在 得到 里知道了这个作者和这本书。每一章里有若干讲，每一讲都对应一个案例和理论。目前读完了前三章，30讲，感觉这30讲读下来在脑中还是一个个被割裂的片段，所以目前一边整理脑图一边读。</li>
+</ul>
+<img src="/2019/05/25/input-issue-2/xzf.png" class="">
+
+<h3 id="Tutorials"><a href="#Tutorials" class="headerlink" title="Tutorials"></a>Tutorials</h3><ul>
+<li><a href="https://www.raywenderlich.com/5786-uitableview-infinite-scrolling-tutorial" target="_blank" rel="noopener">UITableView Infinite Scrolling Tutorial</a>，原来 iOS 10 新加入了<code>UITableViewDataSourcePrefetching</code> 这个协议专门用来预加载，我之前一直是靠判断 scroll view 的滚动距离来实现的……</li>
+</ul>
+<h3 id="Blogs-amp-Articles"><a href="#Blogs-amp-Articles" class="headerlink" title="Blogs &amp; Articles"></a>Blogs &amp; Articles</h3><ul>
+<li><p><a href="https://www.swiftbysundell.com/posts/the-power-of-userdefaults-in-swift" target="_blank" rel="noopener">The power of UserDefaults in Swift</a>，本以为在存储上有什么高级用法，结果并不是。但是还是学到了两种用途：一是在 app group 中分享数据，二是修改启动参数。</p>
+</li>
+<li><p><a href="https://www.swiftbysundell.com/posts/launch-arguments-in-swift" target="_blank" rel="noopener">Launch arguments in Swift</a>，这个是👆那篇引用的 blog，对于启动参数的有效使用对 debug 和 test 都非常有用。</p>
+</li>
+<li><p><a href="https://www.swiftbysundell.com/posts/feature-flags-in-swift" target="_blank" rel="noopener">Feature flags in Swift</a>，这个又是👆那篇引用的 blog，Sundell 的 blog 就是这样，总会引用自己之前相关的 blog，像维基百科一样，一篇篇互相连接起来，读起来就没完没了。这篇的内容就是如何设置静态和动态的 feature flags。</p>
+</li>
+<li><p><a href="https://www.swiftbysundell.com/posts/using-autoclosure-when-designing-swift-apis" target="_blank" rel="noopener">Using @autoclosure when designing Swift APIs</a>，还是 Sundell 的一篇，讲的就是如何用关键字 <code>@autoclosure</code> 来简化 API 的调用。</p>
+</li>
+<li><p><a href="https://swift.gg/2016/04/06/swift-qa-2016-04-06/" target="_blank" rel="noopener">每周 Swift 社区问答：@autoclosure</a>，和👆一起服用的，关于 <code>@autoclosure</code> 的更详细的介绍。</p>
+</li>
+</ul>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><ul>
+<li><a href="https://nshipster.com/network-link-conditioner/" target="_blank" rel="noopener">Network Link Conditioner</a>，苹果官方有一个开发工具包 Additional Tools for Xcode，其中的 Network Link Conditioner 是用来模拟各种网络环境的，比如带宽、延迟和丢包率。当然还有许多其他方面的工具，比如图形、音频和 HomeKit 等等等等。</li>
+<li><a href="https://github.com/Moya/Moya" target="_blank" rel="noopener">Moya</a>，用 Swift 实现的网络抽象层，久闻大名但是一直没机会使用。这次趁着重构 app 网络层的机会就尝试了一下 Moya，感觉和之前自己写的分层区别不大，都主要是对 API 中 endpoint 的封装。</li>
+<li><a href="https://www.npmjs.com/package/emoji-flags" target="_blank" rel="noopener">emoji-flags</a>，上一篇 Input 中提到的那个 react-flag-icon-css 被替换成了这个。</li>
+<li><a href="https://www.npmjs.com/package/react-infinite-scroller" target="_blank" rel="noopener">react-infinite-scroller</a>，无限滚动加载，简单好用。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/swift/" rel="tag"># swift</a>
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/%E6%97%A5%E8%AF%AD/" rel="tag"># 日语</a>
+              <a href="/tags/%E6%8A%95%E8%B5%84/" rel="tag"># 投资</a>
+              <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/" rel="tag"># 经济学</a>
+              <a href="/tags/book/" rel="tag"># book</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/02/input-issue-1/" rel="prev" title="Input - Issue 1">
+      <i class="fa fa-chevron-left"></i> Input - Issue 1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/10/what-is-new-in-xcode-11/" rel="next" title="What's New in Xcode 11 - WWDC19 Session 401">
+      What's New in Xcode 11 - WWDC19 Session 401 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Books"><span class="nav-number">1.</span> <span class="nav-text">Books</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tutorials"><span class="nav-number">2.</span> <span class="nav-text">Tutorials</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blogs-amp-Articles"><span class="nav-number">3.</span> <span class="nav-text">Blogs &amp; Articles</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tools"><span class="nav-number">4.</span> <span class="nav-text">Tools</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang Shudao"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang Shudao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vulgur" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shudao.wang@me.com" title="E-Mail → mailto:shudao.wang@me.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/vulgur" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;vulgur" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Shudao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

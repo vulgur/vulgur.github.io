@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Fork my life</title>
+  <icon>https://vulgur.github.io/icon.png</icon>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://vulgur.github.io/"/>
+  <updated>2019-06-20T08:02:30.870Z</updated>
+  <id>https://vulgur.github.io/</id>
+  
+  <author>
+    <name>Wang Shudao</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>What&#39;s new in iOS Design - WWDC19 Session 808</title>
+    <link href="https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/"/>
+    <id>https://vulgur.github.io/2019/06/20/What-is-new-in-iOS-Design/</id>
+    <published>2019-06-20T08:02:30.000Z</published>
+    <updated>2019-06-20T08:02:30.870Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;整个 Session 讲了 iOS 13 中新引入的三个设计上的改进，dark mode、modal presentations 和 contextual menus。&lt;/p&gt;
+&lt;h3 id=&quot;Dark-Mode&quot;&gt;&lt;a href=&quot;#Dark-Mode&quot; class=&quot;headerlink&quot; title=&quot;Dark Mode&quot;&gt;&lt;/a&gt;Dark Mode&lt;/h3&gt;&lt;p&gt;这一部分介绍了设计规范、颜色、材质以及控件等方面在 dark mode 下的具体实现。&lt;/p&gt;
+&lt;img src=&quot;/2019/06/20/What-is-new-in-iOS-Design/dark_mode.jpeg&quot; class=&quot;&quot;&gt;
+    
+    </summary>
+    
+    
+      <category term="wwdc" scheme="https://vulgur.github.io/categories/wwdc/"/>
+    
+    
+      <category term="wwdc19" scheme="https://vulgur.github.io/tags/wwdc19/"/>
+    
+      <category term="design" scheme="https://vulgur.github.io/tags/design/"/>
+    
+      <category term="dark mode" scheme="https://vulgur.github.io/tags/dark-mode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Great Developer Habits - WWDC19 Session 239</title>
+    <link href="https://vulgur.github.io/2019/06/13/great-developer-habits/"/>
+    <id>https://vulgur.github.io/2019/06/13/great-developer-habits/</id>
+    <published>2019-06-13T15:31:15.000Z</published>
+    <updated>2019-06-13T15:31:15.898Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;看这个 Session 的标题本以为是讲一些宽泛的通用的方法论，其实还是围绕苹果的开发环境来提出一些 best practice，当然部分内容也可以适用于其他开发的领域。&lt;/p&gt;
+&lt;img src=&quot;/2019/06/13/great-developer-habits/239_cover.jpg&quot; class=&quot;&quot;&gt;
+    
+    </summary>
+    
+    
+      <category term="wwdc" scheme="https://vulgur.github.io/categories/wwdc/"/>
+    
+    
+      <category term="wwdc19" scheme="https://vulgur.github.io/tags/wwdc19/"/>
+    
+      <category term="xcode" scheme="https://vulgur.github.io/tags/xcode/"/>
+    
+      <category term="craft" scheme="https://vulgur.github.io/tags/craft/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Catalina beta 初体验</title>
+    <link href="https://vulgur.github.io/2019/06/12/catalina-beta/"/>
+    <id>https://vulgur.github.io/2019/06/12/catalina-beta/</id>
+    <published>2019-06-12T12:21:09.000Z</published>
+    <updated>2019-06-12T12:21:09.803Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这是我第一次装 beta 版的 macOS，不在主力机上使用 beta OS 是我之前一直的原则。&lt;/p&gt;
+&lt;p&gt;其实这一次一开始我也没有打算动用主力机，我只是下载了 Xcode 11 beta 在主力机上，但是 SwiftUI 的 Canvas Preview   需要 Catalina beta 才可以。于是我把备用机（MD101）装上了 Catalina beta，但是我几乎把备用机的资料和 app 删得只剩一个系统了，还是没有足够的空间来安装 Xcode 11 beta。&lt;/p&gt;
+&lt;p&gt;无奈 SwiftUI 的诱惑力太大了，我就突破了自己的底线在主力机上装了 Catalina beta，于是我就开始了为期一周的体验，但是有些 bug 实在忍不了，再加上整个系统的卡顿现象十分严重，只好今天抹盘重装了。&lt;/p&gt;
+&lt;p&gt;因为资料都备份好了，我也不想用 Time Machine 恢复了，于是我现在用的是一个干干净净、速度飞快的系统了，MD 以后再也不折腾 beta OS 了。&lt;/p&gt;
+&lt;p&gt;下面就是我这一周内遇到的 Catalina 的一些问题，还有少量的惊喜。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="catalina" scheme="https://vulgur.github.io/categories/catalina/"/>
+    
+    
+      <category term="macos" scheme="https://vulgur.github.io/tags/macos/"/>
+    
+      <category term="bug" scheme="https://vulgur.github.io/tags/bug/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>What&#39;s New in Swift - WWDC19 Session 402</title>
+    <link href="https://vulgur.github.io/2019/06/11/what-is-new-in-swift/"/>
+    <id>https://vulgur.github.io/2019/06/11/what-is-new-in-swift/</id>
+    <published>2019-06-11T03:00:14.000Z</published>
+    <updated>2019-06-12T11:38:14.802Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先，Xcode 10.2 已经支持了 Swift 5，而 Xcode 11 会支持 Swift 5.1，其实 SwiftUI 的背后就有 Swift 5.1 的新 API。&lt;/p&gt;
+&lt;p&gt;关于 ABI 和 SPM 就不再赘述了，下面是 Session 中提到的一些 Swift 5.1 中的新内容和改进。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="wwdc" scheme="https://vulgur.github.io/categories/wwdc/"/>
+    
+    
+      <category term="wwdc19" scheme="https://vulgur.github.io/tags/wwdc19/"/>
+    
+      <category term="swift5.1" scheme="https://vulgur.github.io/tags/swift5-1/"/>
+    
+      <category term="api" scheme="https://vulgur.github.io/tags/api/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>What&#39;s New in App Store Connect - WWDC19 Session 301</title>
+    <link href="https://vulgur.github.io/2019/06/10/what-is-New-in-App-Store-Connect/"/>
+    <id>https://vulgur.github.io/2019/06/10/what-is-New-in-App-Store-Connect/</id>
+    <published>2019-06-10T13:41:50.000Z</published>
+    <updated>2019-06-12T11:38:14.766Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这个 Session 只有30分钟，但是干货也不少，下面是我总结的一些要点。&lt;/p&gt;
+&lt;img src=&quot;/2019/06/10/what-is-New-in-App-Store-Connect/lifecycle.jpg&quot; class=&quot;&quot;&gt;
+    
+    </summary>
+    
+    
+      <category term="wwdc" scheme="https://vulgur.github.io/categories/wwdc/"/>
+    
+    
+      <category term="wwdc19" scheme="https://vulgur.github.io/tags/wwdc19/"/>
+    
+      <category term="testflight" scheme="https://vulgur.github.io/tags/testflight/"/>
+    
+      <category term="app store connect" scheme="https://vulgur.github.io/tags/app-store-connect/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>What&#39;s New in Xcode 11 - WWDC19 Session 401</title>
+    <link href="https://vulgur.github.io/2019/06/10/what-is-new-in-xcode-11/"/>
+    <id>https://vulgur.github.io/2019/06/10/what-is-new-in-xcode-11/</id>
+    <published>2019-06-10T02:32:45.000Z</published>
+    <updated>2019-06-12T11:38:14.791Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;下面是 Session 401 提到的 Xcode 11 中的新功能和改进，我列出来大概其中90%的内容。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="wwdc" scheme="https://vulgur.github.io/categories/wwdc/"/>
+    
+    
+      <category term="wwdc19" scheme="https://vulgur.github.io/tags/wwdc19/"/>
+    
+      <category term="ide" scheme="https://vulgur.github.io/tags/ide/"/>
+    
+      <category term="xcode" scheme="https://vulgur.github.io/tags/xcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Input - Issue 2</title>
+    <link href="https://vulgur.github.io/2019/05/25/input-issue-2/"/>
+    <id>https://vulgur.github.io/2019/05/25/input-issue-2/</id>
+    <published>2019-05-25T05:23:44.000Z</published>
+    <updated>2020-02-27T08:06:30.168Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本来这篇 issue 的大纲都写好了差不多将近一个月了，但是最近各种杂事，代码写得不多，也疏于整理 blog 了。好在该忙的基本都忙完了，接下来的日子就是安心 I/O 了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="input" scheme="https://vulgur.github.io/categories/input/"/>
+    
+    
+      <category term="swift" scheme="https://vulgur.github.io/tags/swift/"/>
+    
+      <category term="react" scheme="https://vulgur.github.io/tags/react/"/>
+    
+      <category term="日语" scheme="https://vulgur.github.io/tags/%E6%97%A5%E8%AF%AD/"/>
+    
+      <category term="投资" scheme="https://vulgur.github.io/tags/%E6%8A%95%E8%B5%84/"/>
+    
+      <category term="经济学" scheme="https://vulgur.github.io/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    
+      <category term="book" scheme="https://vulgur.github.io/tags/book/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Input - Issue 1</title>
+    <link href="https://vulgur.github.io/2019/05/02/input-issue-1/"/>
+    <id>https://vulgur.github.io/2019/05/02/input-issue-1/</id>
+    <published>2019-05-02T03:40:47.000Z</published>
+    <updated>2019-06-12T11:38:14.758Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如果用计算机程序来类比人生的话，那么一个人的生活从最简单的角度去看，无非就是不断的输入和输出。&lt;/p&gt;
+&lt;p&gt;输入就是人的五感带来的信息，即所见所闻。输出就是由我们产生的东西，即所想所为，可具体可抽象，具体如言语、绘画、产品等，抽象如各种思考的衍生物。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="input" scheme="https://vulgur.github.io/categories/input/"/>
+    
+    
+      <category term="react" scheme="https://vulgur.github.io/tags/react/"/>
+    
+      <category term="iOS" scheme="https://vulgur.github.io/tags/iOS/"/>
+    
+      <category term="mongodb" scheme="https://vulgur.github.io/tags/mongodb/"/>
+    
+      <category term="node" scheme="https://vulgur.github.io/tags/node/"/>
+    
+      <category term="tools" scheme="https://vulgur.github.io/tags/tools/"/>
+    
+      <category term="libraries" scheme="https://vulgur.github.io/tags/libraries/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《稀缺》阅后总结以及谈谈和996的关联性</title>
+    <link href="https://vulgur.github.io/2019/03/31/scarcity/"/>
+    <id>https://vulgur.github.io/2019/03/31/scarcity/</id>
+    <published>2019-03-31T02:19:11.000Z</published>
+    <updated>2019-06-12T11:38:14.748Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;就在昨天，我终于啃完了《稀缺》这本书，从2019-02-25开始读，2019-03-30结束，持续了一个月的时间，但其实真正的阅读时长是8小时。不太清楚一开始是从哪里看到这本书的介绍了，好像是「得到」吧。一开始是抱着希望能得到一些关于理财和资源优化配置方法的期待去读这本书的，没想到读下来完全不是这么一回事。&lt;/p&gt;
+&lt;img src=&quot;/2019/03/31/scarcity/book.jpg&quot; class=&quot;&quot;&gt;
+    
+    </summary>
+    
+    
+      <category term="book" scheme="https://vulgur.github.io/categories/book/"/>
+    
+    
+      <category term="996" scheme="https://vulgur.github.io/tags/996/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何避免计划谬误</title>
+    <link href="https://vulgur.github.io/2019/03/18/how-to-avoid-planning-fallacy/"/>
+    <id>https://vulgur.github.io/2019/03/18/how-to-avoid-planning-fallacy/</id>
+    <published>2019-03-18T06:48:53.000Z</published>
+    <updated>2019-06-12T11:38:14.743Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前些日子读了一篇 blog，原文是 &lt;a href=&quot;https://www.fastcompany.com/90313102/how-to-get-better-at-estimating-your-time&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;We’re terrible at predicting time, so do these things instead&lt;/a&gt;，内容就是如何克服我们人类不擅长估算时间这一个缺点。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="productivity" scheme="https://vulgur.github.io/categories/productivity/"/>
+    
+    
+      <category term="planning" scheme="https://vulgur.github.io/tags/planning/"/>
+    
+      <category term="blog" scheme="https://vulgur.github.io/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用 Swift 刷 Leetcode No.917 - Reverse Only Letters</title>
+    <link href="https://vulgur.github.io/2019/02/16/how-to-check-if-a-character-is-a-letter/"/>
+    <id>https://vulgur.github.io/2019/02/16/how-to-check-if-a-character-is-a-letter/</id>
+    <published>2019-02-16T13:56:23.000Z</published>
+    <updated>2019-06-12T11:38:14.740Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近又又又开始刷 Leetcode 了。&lt;/p&gt;
+&lt;p&gt;整个过年期间一行代码都没写，自知编程也是个用进废退的技能，为了恢复手感，就先从一道道算法题来练手吧。另外一个原因是，刷 Leetcode 也算是成就之一，结合我刚刚建立的 BMS（Better Me System， 名字是我自己起的，是一个游戏化达到自我成就的方法集，具体内容可以参考这篇文章：&lt;a href=&quot;https://sspai.com/post/52270&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;2018我的人生游戏指南-欲望与「成救」模式&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;这次刷题我用了 VSCode 的 &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=shengchen.vscode-leetcode&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Leetcode 插件&lt;/a&gt;，真乃神器也，给作者一个👍。&lt;/p&gt;
+&lt;p&gt;No. 917 这道题就是只反转所有的字母字符，而不是数字和标点符号，所以关键点就在于判断一个字符是否是字母了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://vulgur.github.io/categories/leetcode/"/>
+    
+    
+      <category term="algorithms" scheme="https://vulgur.github.io/tags/algorithms/"/>
+    
+      <category term="string" scheme="https://vulgur.github.io/tags/string/"/>
+    
+      <category term="array" scheme="https://vulgur.github.io/tags/array/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何生成模拟的用户数据</title>
+    <link href="https://vulgur.github.io/2019/01/07/how-to-generate-mock-user/"/>
+    <id>https://vulgur.github.io/2019/01/07/how-to-generate-mock-user/</id>
+    <published>2019-01-06T16:00:00.000Z</published>
+    <updated>2019-06-12T11:38:14.737Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这是迟到了半年的一篇 blog，本来去年8月就想写了，可是当时工期比较紧，一直忙于赶工，等到做完了就拖延到了今天，那就作为2019年第一篇正式 blog 吧。&lt;/p&gt;
+&lt;p&gt;相关项目是去年做的一个社交类型的小程序，我负责的是后端。到了测试用户列表的时候，必须要生成一些模拟用户。像年龄、性别、标签、描述这样的数据还比较好模拟，就是预设一些合理的数据集合，然后在里面随机取值就行了。还有些属性就不能这么简简单单地模拟了，一些是构造数据比较麻烦（或者是浪费脑子，比如名字和日期），还有一些就是人工无法模拟出相对准确的数据（比如地理坐标），还有一些就是为了让测试数据看起来不那么假（比如头像）。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Node" scheme="https://vulgur.github.io/categories/Node/"/>
+    
+    
+      <category term="test" scheme="https://vulgur.github.io/tags/test/"/>
+    
+      <category term="mock" scheme="https://vulgur.github.io/tags/mock/"/>
+    
+      <category term="package" scheme="https://vulgur.github.io/tags/package/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2018 年度回顾和总结</title>
+    <link href="https://vulgur.github.io/2019/01/01/2018-summary/"/>
+    <id>https://vulgur.github.io/2019/01/01/2018-summary/</id>
+    <published>2018-12-31T16:00:00.000Z</published>
+    <updated>2019-06-12T11:38:14.736Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2019 年了，无法阻挡地还是来了。&lt;/p&gt;
+&lt;p&gt;昨天通过日记回顾了一下这一年，各方面都比2017年好很多。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="summary" scheme="https://vulgur.github.io/categories/summary/"/>
+    
+    
+      <category term="freelance" scheme="https://vulgur.github.io/tags/freelance/"/>
+    
+      <category term="freelancer" scheme="https://vulgur.github.io/tags/freelancer/"/>
+    
+      <category term="life" scheme="https://vulgur.github.io/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sources 开发日记五：代码展示页面</title>
+    <link href="https://vulgur.github.io/2016/08/28/sources-5/"/>
+    <id>https://vulgur.github.io/2016/08/28/sources-5/</id>
+    <published>2016-08-27T16:00:00.000Z</published>
+    <updated>2019-06-12T11:27:09.406Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;好久没写 blog 了，上一篇距离现在居然有一个半月了，而上一篇关于 Sources 的开发日记竟然相隔快两个月了。得赶快把 v1.0 的最后两篇写完，然后全身心进入下一个版本的开发和记录。&lt;/p&gt;
+&lt;p&gt;这一篇讲的部分应该是整个 App 最出彩的地方（颜色很多），展示代码，而且是带有语法高亮的展示。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Sources" scheme="https://vulgur.github.io/categories/Sources/"/>
+    
+    
+      <category term="github" scheme="https://vulgur.github.io/tags/github/"/>
+    
+      <category term="swift" scheme="https://vulgur.github.io/tags/swift/"/>
+    
+      <category term="mvvm" scheme="https://vulgur.github.io/tags/mvvm/"/>
+    
+      <category term="syntax highlight" scheme="https://vulgur.github.io/tags/syntax-highlight/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sources 开发日记四：文件列表页面</title>
+    <link href="https://vulgur.github.io/2016/07/08/sources-4/"/>
+    <id>https://vulgur.github.io/2016/07/08/sources-4/</id>
+    <published>2016-07-07T16:00:00.000Z</published>
+    <updated>2019-06-12T11:27:09.403Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Code Reader 改名为 Sources，已经上架&lt;br&gt;App Store: &lt;a href=&quot;http://itunes.apple.com/app/id1125732186。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://itunes.apple.com/app/id1125732186。&lt;/a&gt;&lt;br&gt;同时 Sources 也在 Github 上开源了，地址是：&lt;a href=&quot;https://github.com/vulgur/Sources。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/vulgur/Sources。&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这篇讲讲 Repo 的文件列表的页面。&lt;br&gt;这部分的功能包括显示文件列表，根据文件类型显示不同的图标以及进行相应的选择处理。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Sources" scheme="https://vulgur.github.io/categories/Sources/"/>
+    
+    
+      <category term="app" scheme="https://vulgur.github.io/tags/app/"/>
+    
+      <category term="github" scheme="https://vulgur.github.io/tags/github/"/>
+    
+      <category term="swift" scheme="https://vulgur.github.io/tags/swift/"/>
+    
+      <category term="mvvm" scheme="https://vulgur.github.io/tags/mvvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sources 开发日记三：Repo页面</title>
+    <link href="https://vulgur.github.io/2016/07/01/sources-3/"/>
+    <id>https://vulgur.github.io/2016/07/01/sources-3/</id>
+    <published>2016-06-30T16:00:00.000Z</published>
+    <updated>2019-06-12T11:27:09.400Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Code Reader 改名为 Sources，已经上架&lt;br&gt;App Store: &lt;a href=&quot;http://itunes.apple.com/app/id1125732186。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://itunes.apple.com/app/id1125732186。&lt;/a&gt;&lt;br&gt;同时 Sources 也在 Github 上开源了，地址是：&lt;a href=&quot;https://github.com/vulgur/Sources。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/vulgur/Sources。&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这篇写展示 Repo 信息的页面，也是 MVVM 应用最多的一个页面。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Sources" scheme="https://vulgur.github.io/categories/Sources/"/>
+    
+    
+      <category term="app" scheme="https://vulgur.github.io/tags/app/"/>
+    
+      <category term="github" scheme="https://vulgur.github.io/tags/github/"/>
+    
+      <category term="swift" scheme="https://vulgur.github.io/tags/swift/"/>
+    
+      <category term="mvvm" scheme="https://vulgur.github.io/tags/mvvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sources 开发日记二：搜索</title>
+    <link href="https://vulgur.github.io/2016/06/03/sources-2/"/>
+    <id>https://vulgur.github.io/2016/06/03/sources-2/</id>
+    <published>2016-06-02T16:00:00.000Z</published>
+    <updated>2019-06-12T11:27:09.359Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Code Reader 改名为 Sources，已经上架&lt;br&gt;App Store: &lt;a href=&quot;http://itunes.apple.com/app/id1125732186。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://itunes.apple.com/app/id1125732186。&lt;/a&gt;&lt;br&gt;同时 Sources 也在 Github 上开源了，地址是：&lt;a href=&quot;https://github.com/vulgur/Sources。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/vulgur/Sources。&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这一篇写搜索 Repo 功能的实现。&lt;br&gt;输入 Repo name 关键字，返回搜索结果。说起来简单，细节其实还不少。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Sources" scheme="https://vulgur.github.io/categories/Sources/"/>
+    
+    
+      <category term="app" scheme="https://vulgur.github.io/tags/app/"/>
+    
+      <category term="github" scheme="https://vulgur.github.io/tags/github/"/>
+    
+      <category term="swift" scheme="https://vulgur.github.io/tags/swift/"/>
+    
+      <category term="mvvm" scheme="https://vulgur.github.io/tags/mvvm/"/>
+    
+      <category term="search" scheme="https://vulgur.github.io/tags/search/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sources 开发日记一：开始</title>
+    <link href="https://vulgur.github.io/2016/05/29/sources-1/"/>
+    <id>https://vulgur.github.io/2016/05/29/sources-1/</id>
+    <published>2016-05-29T07:05:27.000Z</published>
+    <updated>2019-06-12T11:27:09.345Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Code Reader 改名为 Sources，已经上架&lt;br&gt;App Store: &lt;a href=&quot;http://itunes.apple.com/app/id1125732186。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://itunes.apple.com/app/id1125732186。&lt;/a&gt;&lt;br&gt;同时 Sources 也在 Github 上开源了，地址是：&lt;a href=&quot;https://github.com/vulgur/Sources。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/vulgur/Sources。&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;决定写开发日记是为了记录自己开发过程中的细节。以前做项目，往往做完了，过程中间的思考和心得就都忘了，导致收获非常少。可能这些开放日记会很琐碎，也会不流畅，但是为了方便以后回顾，这些都无所谓了。&lt;/p&gt;
+&lt;p&gt;前段时间出现了一个新需求：在 iPad 上面读 Github 上的源代码。在 App Store 搜了一番，发现两个做得很好的 Github 客户端，一个是 CodeHub，另一个是 NapCat。但是两个多多少少还是有些不尽人意的地方，前者看源代码比较痛苦，而后者的语法高亮还不支持 Swift，于是想动手做一个自己满意的读代码的 App。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Sources" scheme="https://vulgur.github.io/categories/Sources/"/>
+    
+    
+      <category term="app" scheme="https://vulgur.github.io/tags/app/"/>
+    
+      <category term="github" scheme="https://vulgur.github.io/tags/github/"/>
+    
+      <category term="swift" scheme="https://vulgur.github.io/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用 Reveal 分析系统日历应用（碰到了一个大坑）</title>
+    <link href="https://vulgur.github.io/2016/04/14/reveal-calendar/"/>
+    <id>https://vulgur.github.io/2016/04/14/reveal-calendar/</id>
+    <published>2016-04-13T16:00:00.000Z</published>
+    <updated>2019-06-12T11:27:09.349Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇博客的起因是这样的，前些日子的一个电话面试，其中一个问题是：如何实现 iOS 系统中的日历应用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://vulgur.github.io/categories/iOS/"/>
+    
+    
+      <category term="reveal" scheme="https://vulgur.github.io/tags/reveal/"/>
+    
+      <category term="reverse" scheme="https://vulgur.github.io/tags/reverse/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>仿写知乎日报：侧边栏菜单</title>
+    <link href="https://vulgur.github.io/2016/01/22/zhihu-3/"/>
+    <id>https://vulgur.github.io/2016/01/22/zhihu-3/</id>
+    <published>2016-01-21T16:00:00.000Z</published>
+    <updated>2019-06-12T11:27:09.517Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这一篇 blog 是专门介绍如何仿写知乎日报的侧边栏菜单，主要介绍如何构建 UI 以及一个渐隐的图层效果，和如何控制侧边栏的显示和隐藏。&lt;/p&gt;
+&lt;img src=&quot;/2016/01/22/zhihu-3/sidebar.gif&quot; class=&quot;&quot; title=&quot;侧边栏菜单&quot;&gt;
+    
+    </summary>
+    
+    
+      <category term="知乎日报" scheme="https://vulgur.github.io/categories/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5/"/>
+    
+    
+      <category term="仿写" scheme="https://vulgur.github.io/tags/%E4%BB%BF%E5%86%99/"/>
+    
+      <category term="CALayer" scheme="https://vulgur.github.io/tags/CALayer/"/>
+    
+      <category term="UIGestureRecognizer" scheme="https://vulgur.github.io/tags/UIGestureRecognizer/"/>
+    
+  </entry>
+  
+</feed>
