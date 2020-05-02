@@ -559,4 +559,57 @@
     
   </entry>
   
+  <entry>
+    <title>仿写知乎日报：主页面补遗</title>
+    <link href="https://vulgur.github.io/2016/01/08/zhihu-2/"/>
+    <id>https://vulgur.github.io/2016/01/08/zhihu-2/</id>
+    <published>2016-01-07T16:00:00.000Z</published>
+    <updated>2019-06-12T11:27:09.457Z</updated>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;/2016/01/08/zhihu-2/home.png&quot; class=&quot;&quot;&gt;
+&lt;p&gt;这篇是仿写知乎日报系列的第二部分，内容是上一篇的补遗。&lt;br&gt;之前做得主页面还有以下几点没有完成：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;目前这个主页只做了展示，点击没有任何效果。&lt;/li&gt;
+&lt;li&gt;TableView 滑上再滑下的时候，topView 不会完全消失，可能会有淡淡地残留，这点还没有优化。&lt;/li&gt;
+&lt;li&gt;原版的轮播图片底部和顶部有黑色阴影的渐变，这样在纯白的图片下，按钮和文字标题都可以清晰显示出来。&lt;/li&gt;
+&lt;li&gt;TableView 的内容会根据日期来分组。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因为主要做的是 UI 上的仿写，所以本篇仍然没有实现上述的第一条。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="知乎日报" scheme="https://vulgur.github.io/categories/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5/"/>
+    
+    
+      <category term="仿写" scheme="https://vulgur.github.io/tags/%E4%BB%BF%E5%86%99/"/>
+    
+      <category term="CALayer" scheme="https://vulgur.github.io/tags/CALayer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>仿写知乎日报：主页面</title>
+    <link href="https://vulgur.github.io/2016/01/06/zhihu-1/"/>
+    <id>https://vulgur.github.io/2016/01/06/zhihu-1/</id>
+    <published>2016-01-05T16:00:00.000Z</published>
+    <updated>2019-06-12T11:27:09.411Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;失业后发现自己的项目经验太少了，除了公司的 App 和自己的游戏之外就几乎为零了，所以必须要增加自己的实战经验。之前写 UI 都是纯代码，为了熟悉 Storyboard，特地选择了知乎日报来练手。&lt;/p&gt;
+&lt;p&gt;在之前这个&lt;a href=&quot;https://github.com/hshpy/HPYZhiHuDaily&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;仿知乎日报的 iOS App&lt;/a&gt; 已经很出名了，我也是借鉴（就是抄）了部分的实现，图片和 API 则是完全照搬。当然我也有我自己的不同之处，我的 UI 是尽可能采用 Storyboard+xib 来实现，另外也在一些细节上更贴近正版知乎日报。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="知乎日报" scheme="https://vulgur.github.io/categories/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5/"/>
+    
+    
+      <category term="仿写" scheme="https://vulgur.github.io/tags/%E4%BB%BF%E5%86%99/"/>
+    
+  </entry>
+  
 </feed>
