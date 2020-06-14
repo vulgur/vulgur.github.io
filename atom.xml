@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Fork my life</title>
-  
+  <icon>https://vulgur.github.io/icon.png</icon>
   
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://vulgur.github.io/"/>
-  <updated>2019-06-20T08:02:30.870Z</updated>
+  <updated>2020-06-14T14:57:09.683Z</updated>
   <id>https://vulgur.github.io/</id>
   
   <author>
@@ -15,6 +15,61 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的第一个 100K app</title>
+    <link href="https://vulgur.github.io/2020/04/30/my-first-100k-app/"/>
+    <id>https://vulgur.github.io/2020/04/30/my-first-100k-app/</id>
+    <published>2020-04-30T03:29:51.000Z</published>
+    <updated>2020-06-14T14:57:09.683Z</updated>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;/2020/04/30/my-first-100k-app/dark.jpg&quot; class=&quot;&quot;&gt;
+
+&lt;p&gt;100K 指的是 app 的总下载量，也就是 10W，并不是收入。&lt;/p&gt;
+&lt;p&gt;下面就是我的 app， 极简时钟（以下简称为 ZFC）背后的故事，一直以来都想详细记录一下这个对于我来说意义非凡的 app，正好趁此下载量突破10W的机会，就当作一个里程碑的纪念了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="app" scheme="https://vulgur.github.io/categories/app/"/>
+    
+    
+      <category term="独立开发者" scheme="https://vulgur.github.io/tags/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91%E8%80%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2019年终总结</title>
+    <link href="https://vulgur.github.io/2020/01/01/2019-summary/"/>
+    <id>https://vulgur.github.io/2020/01/01/2019-summary/</id>
+    <published>2020-01-01T15:58:59.000Z</published>
+    <updated>2020-06-14T14:57:18.797Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2019年都过去快一个月了，一直拖着这个总结没有写。&lt;/p&gt;
+&lt;p&gt;现在是大年初一的晚上11点，老婆孩子都睡了，终于有时间整理一下了。&lt;/p&gt;
+&lt;h4 id=&quot;理财&quot;&gt;&lt;a href=&quot;#理财&quot; class=&quot;headerlink&quot; title=&quot;理财&quot;&gt;&lt;/a&gt;理财&lt;/h4&gt;&lt;p&gt;2019年可以称作是我的理财元年，虽然之前几年也一直买各种 app 中的理财产品（后来才知道其实都是货币基金），但是基本都是定期半年或者一年就完全赎回了，所以收益可以说几乎没有，和余额宝差不多。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="summary" scheme="https://vulgur.github.io/categories/summary/"/>
+    
+    
+      <category term="理财" scheme="https://vulgur.github.io/tags/%E7%90%86%E8%B4%A2/"/>
+    
+      <category term="跨界" scheme="https://vulgur.github.io/tags/%E8%B7%A8%E7%95%8C/"/>
+    
+      <category term="独立开发" scheme="https://vulgur.github.io/tags/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="少儿编程" scheme="https://vulgur.github.io/tags/%E5%B0%91%E5%84%BF%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="成就" scheme="https://vulgur.github.io/tags/%E6%88%90%E5%B0%B1/"/>
+    
+  </entry>
   
   <entry>
     <title>What&#39;s new in iOS Design - WWDC19 Session 808</title>
@@ -241,7 +296,7 @@
     <link href="https://vulgur.github.io/2019/03/31/scarcity/"/>
     <id>https://vulgur.github.io/2019/03/31/scarcity/</id>
     <published>2019-03-31T02:19:11.000Z</published>
-    <updated>2019-06-12T11:38:14.748Z</updated>
+    <updated>2020-05-11T14:32:48.434Z</updated>
     
     <summary type="html">
     
