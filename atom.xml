@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://vulgur.github.io/"/>
-  <updated>2020-06-14T14:57:09.683Z</updated>
+  <updated>2020-06-18T08:45:18.240Z</updated>
   <id>https://vulgur.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>「极简时钟」2020年6月上旬数据总结（国际 App 诞生了！）</title>
+    <link href="https://vulgur.github.io/2020/06/18/zen-flip-clock-data-in-early-june-2020/"/>
+    <id>https://vulgur.github.io/2020/06/18/zen-flip-clock-data-in-early-june-2020/</id>
+    <published>2020-06-18T08:36:19.000Z</published>
+    <updated>2020-06-18T08:45:18.240Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;距离上一篇文章过了3个月了，那时极简时钟的总下载量突破了100K，而现在总下载量突破了300K，也就是3个月内就新增了200K！🎉&lt;/p&gt;
+&lt;img src=&quot;/2020/06/18/zen-flip-clock-data-in-early-june-2020/300K.jpg&quot; class=&quot;&quot;&gt;
+
+&lt;p&gt;现在6月过半，下载量已经超过了5月整体的数据，同比和环比都创下历史新高。🥳&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="app" scheme="https://vulgur.github.io/categories/app/"/>
+    
+    
+      <category term="freelance" scheme="https://vulgur.github.io/tags/freelance/"/>
+    
+      <category term="milestone" scheme="https://vulgur.github.io/tags/milestone/"/>
+    
+  </entry>
   
   <entry>
     <title>我的第一个 100K app</title>
