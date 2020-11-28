@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://vulgur.github.io/"/>
-  <updated>2020-06-18T08:45:18.240Z</updated>
+  <updated>2020-09-02T16:57:18.876Z</updated>
   <id>https://vulgur.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Privacy Policy</title>
+    <link href="https://vulgur.github.io/2020/08/01/zfc-privacy-policy/"/>
+    <id>https://vulgur.github.io/2020/08/01/zfc-privacy-policy/</id>
+    <published>2020-08-01T02:38:27.000Z</published>
+    <updated>2020-09-02T16:57:18.876Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;PRIVACY-NOTICE&quot;&gt;&lt;a href=&quot;#PRIVACY-NOTICE&quot; class=&quot;headerlink&quot; title=&quot;PRIVACY NOTICE&quot;&gt;&lt;/a&gt;&lt;strong&gt;PRIVACY
+        
+      
+    
+    </summary>
+    
+    
+      <category term="zfc" scheme="https://vulgur.github.io/categories/zfc/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>「极简时钟」2020年6月上旬数据总结（国际 App 诞生了！）</title>
